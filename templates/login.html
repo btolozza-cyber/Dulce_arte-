@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Iniciar sesión | Dulce Arte</title>
+
+    <style>
+        :root {
+            --fondo: #222321;
+            --panel: #2D2E2A;
+            --tarjeta: #33342F;
+            --borde: #484840;
+            --verde: #203D30;
+            --verde-hover: #162D23;
+            --verde-claro: #78917D;
+            --cafe: #594333;
+            --blanco: #F5F4F0;
+            --texto: #E7E5DF;
+            --secundario: #B4B1A9;
+            --rojo: #A94C43;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background:
+                radial-gradient(
+                    circle at top,
+                    #30352F 0%,
+                    var(--fondo) 55%
+                );
+            font-family: Arial, Helvetica, sans-serif;
+            color: var(--texto);
+        }
+
+        .contenedor {
+            width: 100%;
+            max-width: 420px;
+        }
+
+        .marca {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .marca h1 {
+            color: var(--blanco);
+            font-size: 34px;
+            letter-spacing: 3px;
+            margin-bottom: 9px;
+        }
+
+        .marca p {
+            color: #A58B70;
+            font-size: 11px;
+            letter-spacing: 3px;
+            font-weight: bold;
+        }
+
+        .panel {
+            background: var(--panel);
+            border: 1px solid var(--borde);
+            border-radius: 13px;
+            padding: 32px;
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.25);
+        }
+
+        .panel h2 {
+            color: var(--blanco);
+            font-size: 23px;
+            margin-bottom: 9px;
+        }
+
+        .descripcion {
+            color: var(--secundario);
+            font-size: 13px;
+            line-height: 1.5;
+            margin-bottom: 28px;
+        }
+
+        .campo {
+            margin-bottom: 19px;
+        }
+
+        label {
+            display: block;
+            color: var(--texto);
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 9px;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px 14px;
+            background: var(--tarjeta);
+            border: 1px solid var(--borde);
+            border-radius: 7px;
+            outline: none;
+            color: var(--blanco);
+            font-size: 14px;
+            transition: border-color 0.2s;
+        }
+
+        input:focus {
+            border-color: var(--verde-claro);
+        }
+
+        input::placeholder {
+            color: #89877F;
+        }
+
+        .boton {
+            width: 100%;
+            padding: 14px;
+            margin-top: 8px;
+            border: none;
+            border-radius: 7px;
+            background: var(--verde);
+            color: var(--blanco);
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .boton:hover {
+            background: var(--verde-hover);
+        }
+
+        .error {
+            padding: 12px;
+            margin-bottom: 20px;
+            background: #512C29;
+            border: 1px solid var(--rojo);
+            border-radius: 7px;
+            color: #F0C2BC;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .error ul {
+            list-style: none;
+        }
+
+        .pie {
+            margin-top: 23px;
+            text-align: center;
+            color: var(--secundario);
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 480px) {
+            .panel {
+                padding: 25px 20px;
+            }
+
+            .marca h1 {
+                font-size: 29px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="contenedor">
+
+    <div class="marca">
+        <h1>DULCE ARTE</h1>
+        <p>SISTEMA DE GESTIÓN</p>
+    </div>
+
+    <main class="panel">
+
+        <h2>Bienvenido</h2>
+
+        <p class="descripcion">
+            Ingresa tus credenciales para acceder al sistema.
+        </p>
+
+        {% if form.errors %}
+            <div class="error">
+                <ul>
+                    <li>Usuario o contraseña incorrectos. Verifica tus datos e inténtalo nuevamente.</li>
+                </ul>
+            </div>
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <input
+                type="hidden"
+                name="next"
+                value="{{ next }}"
+            >
+
+            <div class="campo">
+                <label for="{{ form.username.id_for_label }}">
+                    Nombre de usuario
+                </label>
+
+                <input
+                    type="text"
+                    name="username"
+                    id="{{ form.username.id_for_label }}"
+                    placeholder="Ingresa tu usuario"
+                    autocomplete="username"
+                    required
+                    autofocus
+                >
+            </div>
+
+            <div class="campo">
+                <label for="{{ form.password.id_for_label }}">
+                    Contraseña
+                </label>
+
+                <input
+                    type="password"
+                    name="password"
+                    id="{{ form.password.id_for_label }}"
+                    placeholder="Ingresa tu contraseña"
+                    autocomplete="current-password"
+                    required
+                >
+            </div>
+
+            <button type="submit" class="boton">
+                Iniciar sesión
+            </button>
+
+        </form>
+
+    </main>
+
+    <footer class="pie">
+        Acceso exclusivo para personal autorizado.<br>
+        Dulce Arte · Sistema de gestión y trazabilidad
+    </footer>
+
+</div>
+
+</body>
+</html>

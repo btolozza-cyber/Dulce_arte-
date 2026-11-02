@@ -1,0 +1,1081 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clientes | Dulce Arte</title>
+
+    <style>
+        :root {
+            --gris-fondo: #222321;
+            --gris-panel: #2D2E2A;
+            --gris-tarjeta: #33342F;
+            --gris-borde: #484840;
+            --verde: #203D30;
+            --verde-hover: #162D23;
+            --verde-claro: #78917D;
+            --cafe: #594333;
+            --cafe-oscuro: #403024;
+            --cafe-claro: #A58B70;
+            --blanco: #F5F4F0;
+            --texto: #E7E5DF;
+            --texto-secundario: #B4B1A9;
+            --rojo: #A94F49;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--gris-fondo);
+            color: var(--texto);
+            font-family: Arial, Helvetica, sans-serif;
+            min-height: 100vh;
+        }
+
+        /* HEADER */
+
+        header {
+            background: var(--verde);
+            border-bottom: 1px solid var(--gris-borde);
+            padding: 18px 5%;
+        }
+
+        .header-superior {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 17px;
+        }
+
+        .logo {
+            color: var(--blanco);
+            font-size: 23px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: var(--cafe-claro);
+        }
+
+        .descripcion-logo {
+            color: var(--texto-secundario);
+            font-size: 12px;
+            margin-top: 4px;
+        }
+
+        .acciones-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .acciones-header a,
+        .acciones-header button {
+            text-decoration: none;
+            font-size: 12px;
+            padding: 9px 12px;
+            border-radius: 6px;
+            border: 1px solid var(--gris-borde);
+            cursor: pointer;
+        }
+
+        .btn-admin {
+            background: var(--cafe-oscuro);
+            color: var(--texto);
+        }
+
+        .btn-admin:hover {
+            background: var(--cafe);
+        }
+
+        .btn-logout {
+            background: var(--gris-tarjeta);
+            color: var(--texto);
+        }
+
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--texto-secundario);
+            padding: 9px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            transition: 0.2s;
+        }
+
+        nav a:hover,
+        nav a.activo {
+            background: var(--verde-hover);
+            color: var(--blanco);
+        }
+
+        /* CONTENIDO */
+
+        main {
+            max-width: 1500px;
+            margin: 35px auto;
+            padding: 0 25px 45px;
+        }
+
+        .encabezado {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .encabezado h1 {
+            color: var(--blanco);
+            font-size: 27px;
+            margin-bottom: 7px;
+        }
+
+        .subtitulo {
+            color: var(--texto-secundario);
+            font-size: 14px;
+        }
+
+        /* BOTONES */
+
+        button {
+            border: none;
+            border-radius: 7px;
+            padding: 10px 14px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 13px;
+            transition: 0.2s;
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-principal {
+            background: var(--verde);
+            color: var(--blanco);
+        }
+
+        .btn-principal:hover:not(:disabled) {
+            background: var(--verde-hover);
+        }
+
+        .btn-editar {
+            background: var(--cafe-oscuro);
+            color: var(--texto);
+        }
+
+        .btn-editar:hover:not(:disabled) {
+            background: var(--cafe);
+        }
+
+        .btn-eliminar {
+            background: #49302D;
+            color: #E9B5AE;
+        }
+
+        .btn-eliminar:hover:not(:disabled) {
+            background: #613A35;
+        }
+
+        .btn-cancelar {
+            background: var(--cafe-oscuro);
+            color: #E3C6A8;
+        }
+
+        .btn-cancelar:hover {
+            background: var(--cafe);
+        }
+
+        /* PANELES */
+
+        .panel {
+            background: var(--gris-panel);
+            border: 1px solid var(--gris-borde);
+            border-radius: 11px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+
+        .panel-encabezado {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .panel-encabezado h2,
+        .panel-encabezado h3 {
+            color: var(--blanco);
+            font-size: 18px;
+        }
+
+        .texto-secundario {
+            color: var(--texto-secundario);
+            font-size: 12px;
+        }
+
+        /* FORMULARIO */
+
+        .formulario {
+            display: none;
+        }
+
+        .formulario.activo {
+            display: block;
+            animation: aparecer .2s ease;
+        }
+
+        @keyframes aparecer {
+            from {
+                opacity: 0;
+                transform: translateY(-5px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .campo {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            min-width: 0;
+        }
+
+        .campo label {
+            color: var(--texto-secundario);
+            font-size: 13px;
+            font-weight: normal;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            background: var(--gris-tarjeta);
+            color: var(--texto);
+            border: 1px solid var(--gris-borde);
+            border-radius: 7px;
+            padding: 12px;
+            font-size: 14px;
+            outline: none;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: var(--verde-claro);
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #888980;
+        }
+
+        .campo small,
+        .ayuda {
+            color: var(--texto-secundario);
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        .error-campo {
+            display: none;
+            color: #D28A78;
+            font-size: 12px;
+        }
+
+        .error-campo.visible {
+            display: block;
+        }
+
+        .campo-invalido {
+            border-color: var(--rojo) !important;
+        }
+
+        .form-acciones {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        /* BUSCADOR */
+
+        .barra-herramientas {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .barra-herramientas input {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        /* TABLA */
+
+        .tabla-contenedor {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 720px;
+        }
+
+        th {
+            color: var(--cafe-claro);
+            font-size: 12px;
+            text-transform: uppercase;
+            text-align: left;
+            padding: 14px 12px;
+            border-bottom: 1px solid var(--gris-borde);
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 15px 12px;
+            font-size: 13px;
+            border-bottom: 1px solid var(--gris-borde);
+            color: var(--texto);
+            vertical-align: middle;
+        }
+
+        tbody tr:hover {
+            background: var(--gris-tarjeta);
+        }
+
+        .nombre-cliente {
+            color: var(--blanco);
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .acciones {
+            display: flex;
+            gap: 7px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .acciones button {
+            padding: 7px 10px;
+            font-size: 11px;
+        }
+
+        /* MENSAJES Y ESTADOS */
+
+        .mensaje {
+            display: none;
+            padding: 12px 15px;
+            border-radius: 7px;
+            margin-bottom: 18px;
+            font-size: 13px;
+        }
+
+        .mensaje.visible {
+            display: block;
+        }
+
+        .mensaje.exito {
+            background: #203D30;
+            color: #B5D5BD;
+            border: 1px solid var(--verde-claro);
+        }
+
+        .mensaje.error {
+            background: #49302D;
+            color: #E9B5AE;
+            border: 1px solid var(--rojo);
+        }
+
+        .vacio,
+        .cargando {
+            text-align: center;
+            padding: 30px;
+            color: var(--texto-secundario);
+            font-size: 13px;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 700px) {
+            main {
+                padding: 0 15px 30px;
+                margin-top: 25px;
+            }
+
+            header {
+                padding: 18px;
+            }
+
+            .header-superior {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .acciones-header {
+                flex-wrap: wrap;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .panel {
+                padding: 18px;
+            }
+
+            .encabezado h1 {
+                font-size: 23px;
+            }
+
+            nav {
+                gap: 4px;
+            }
+
+            nav a {
+                padding: 9px;
+                font-size: 12px;
+            }
+
+            .form-acciones {
+                flex-direction: column-reverse;
+            }
+
+            .form-acciones button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="header-superior">
+        <div>
+            <div class="logo">Dulce <span>Arte.</span></div>
+            <p class="descripcion-logo">
+                Sistema de trazabilidad y gestión de pedidos
+            </p>
+        </div>
+
+        <div class="acciones-header">
+            {% if user.is_superuser %}
+                <a href="{% url 'pagina_administracion' %}" class="btn-admin">
+                    Administración
+                </a>
+            {% endif %}
+
+            <form method="POST" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="btn-logout">
+                    Cerrar sesión
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <nav>
+        <a href="{% url 'inicio' %}">Inicio</a>
+        <a href="{% url 'pagina_clientes' %}" class="activo">Clientes</a>
+        <a href="{% url 'pagina_pedidos' %}">Pedidos</a>
+        <a href="{% url 'pagina_productos' %}">Productos</a>
+        <a href="{% url 'pagina_produccion' %}">Producción</a>
+        <a href="{% url 'pagina_inventario' %}">Inventario</a>
+        <a href="{% url 'pagina_despachos' %}">Despachos</a>
+    </nav>
+</header>
+
+<main>
+
+    <section class="encabezado">
+        <div>
+            <h1>Gestión de clientes</h1>
+            <p class="subtitulo">
+                Administra y consulta los clientes registrados en Dulce Arte.
+            </p>
+        </div>
+
+        <button class="btn-principal" onclick="mostrarFormulario()">
+            + Nuevo cliente
+        </button>
+    </section>
+
+    <div id="mensaje" class="mensaje"></div>
+
+    <!-- FORMULARIO -->
+
+    <section class="panel formulario" id="formulario">
+
+        <div class="panel-encabezado">
+            <h2 id="titulo-formulario">Registrar cliente</h2>
+        </div>
+
+        <form id="cliente-form">
+
+            <input type="hidden" id="cliente-id">
+
+            <div class="form-grid">
+
+                <div class="campo">
+                    <label for="nombre">Nombre completo *</label>
+                    <input
+                        type="text"
+                        id="nombre"
+                        maxlength="150"
+                        placeholder="Nombre del cliente"
+                        required
+                    >
+                </div>
+
+                <div class="campo">
+                    <label for="telefono">Teléfono *</label>
+                    <input
+                        type="tel"
+                        id="telefono"
+                        maxlength="20"
+                        placeholder="+56 9 1234 5678"
+                        required
+                    >
+                    <small>
+                        Utiliza números, espacios, +, guiones o paréntesis.
+                    </small>
+                    <span class="error-campo" id="error-telefono"></span>
+                </div>
+
+                <div class="campo">
+                    <label for="correo">Correo electrónico</label>
+                    <input
+                        type="email"
+                        id="correo"
+                        placeholder="correo@ejemplo.cl"
+                    >
+                </div>
+
+                <div class="campo">
+                    <label for="direccion">Dirección</label>
+                    <input
+                        type="text"
+                        id="direccion"
+                        placeholder="Dirección del cliente"
+                    >
+                </div>
+
+            </div>
+
+            <div class="form-acciones">
+
+                <button type="button" class="btn-cancelar" onclick="ocultarFormulario()">
+                    Cancelar
+                </button>
+
+                <button type="submit" class="btn-principal" id="btn-guardar">
+                    Guardar cliente
+                </button>
+
+            </div>
+
+        </form>
+    </section>
+
+    <!-- LISTADO -->
+
+    <section class="panel">
+
+        <div class="panel-encabezado">
+            <h2>Clientes registrados</h2>
+            <span class="texto-secundario" id="total-clientes">0 clientes</span>
+        </div>
+
+        <div class="barra-herramientas">
+            <input
+                type="search"
+                id="busqueda"
+                placeholder="Buscar por nombre, teléfono o correo..."
+            >
+        </div>
+
+        <div class="tabla-contenedor">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Teléfono</th>
+                        <th>Correo</th>
+                        <th>Dirección</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody id="tabla-clientes">
+                    <tr>
+                        <td colspan="5" class="cargando">
+                            Cargando clientes...
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+</main>
+
+<form style="display:none;">
+    {% csrf_token %}
+</form>
+
+<script>
+
+    const API_URL = '/api/clientes/';
+
+    let clientes = [];
+
+    // FORMULARIO
+
+    function mostrarFormulario(cliente = null) {
+
+        document.getElementById('formulario').classList.add('activo');
+
+        document.getElementById('titulo-formulario').textContent =
+            cliente ? 'Editar cliente' : 'Registrar cliente';
+
+        document.getElementById('cliente-id').value = cliente?.id || '';
+        document.getElementById('nombre').value = cliente?.nombre || '';
+        document.getElementById('telefono').value = cliente?.telefono || '';
+        document.getElementById('correo').value = cliente?.correo || '';
+        document.getElementById('direccion').value = cliente?.direccion || '';
+
+        document.getElementById('btn-guardar').textContent =
+            cliente ? 'Guardar cambios' : 'Guardar cliente';
+
+        limpiarErrorTelefono();
+
+        document.getElementById('formulario').scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    }
+
+    function ocultarFormulario() {
+
+        document.getElementById('formulario').classList.remove('activo');
+        document.getElementById('cliente-form').reset();
+        document.getElementById('cliente-id').value = '';
+
+        limpiarErrorTelefono();
+    }
+
+    // MENSAJES
+
+    function mostrarMensaje(texto, tipo = 'exito') {
+
+        const mensaje = document.getElementById('mensaje');
+
+        mensaje.textContent = texto;
+        mensaje.className = `mensaje visible ${tipo}`;
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function limpiarMensaje() {
+
+        const mensaje = document.getElementById('mensaje');
+
+        mensaje.textContent = '';
+        mensaje.className = 'mensaje';
+    }
+
+    // VALIDACIÓN DEL TELÉFONO
+
+    const telefonoInput = document.getElementById('telefono');
+
+    function validarTelefono() {
+
+        const valor = telefonoInput.value.trim();
+        const error = document.getElementById('error-telefono');
+
+        const formatoPermitido = /^[0-9+\s()\-]*$/;
+
+        if (!formatoPermitido.test(valor)) {
+
+            error.textContent =
+                'El teléfono contiene caracteres no permitidos. Utiliza únicamente números, +, espacios, guiones o paréntesis.';
+
+            error.classList.add('visible');
+            telefonoInput.classList.add('campo-invalido');
+
+            return false;
+        }
+
+        limpiarErrorTelefono();
+
+        return true;
+    }
+
+    function limpiarErrorTelefono() {
+
+        const error = document.getElementById('error-telefono');
+
+        error.textContent = '';
+        error.classList.remove('visible');
+        telefonoInput.classList.remove('campo-invalido');
+    }
+
+    telefonoInput.addEventListener('input', validarTelefono);
+
+    // CSRF
+
+    function obtenerCSRF() {
+
+        const cookie = document.cookie
+            .split('; ')
+            .find(fila => fila.startsWith('csrftoken='));
+
+        const campo = document.querySelector('[name=csrfmiddlewaretoken]');
+
+        return cookie
+            ? decodeURIComponent(cookie.split('=').slice(1).join('='))
+            : campo ? campo.value : '';
+    }
+
+    // ESCAPAR HTML
+
+    function escaparHTML(valor) {
+
+        return String(valor ?? '').replace(/[&<>"']/g, caracter => ({
+
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#39;'
+
+        })[caracter]);
+    }
+
+    // CARGAR CLIENTES
+
+    async function cargarClientes(busqueda = '') {
+
+        try {
+
+            const url = new URL(API_URL, window.location.origin);
+
+            if (busqueda) {
+                url.searchParams.set('search', busqueda);
+            }
+
+            const respuesta = await fetch(url, {
+                credentials: 'same-origin'
+            });
+
+            if (!respuesta.ok) {
+                throw new Error('No fue posible cargar los clientes.');
+            }
+
+            const datos = await respuesta.json();
+
+            clientes = Array.isArray(datos)
+                ? datos
+                : datos.results || [];
+
+            renderizarClientes(clientes);
+
+        } catch (error) {
+
+            mostrarMensaje(error.message, 'error');
+        }
+    }
+
+    // RENDERIZAR TABLA
+
+    function renderizarClientes(lista) {
+
+        const tabla = document.getElementById('tabla-clientes');
+
+        document.getElementById('total-clientes').textContent =
+            `${lista.length} cliente(s)`;
+
+        if (lista.length === 0) {
+
+            tabla.innerHTML = `
+                <tr>
+                    <td colspan="5" class="vacio">
+                        No hay clientes registrados.
+                    </td>
+                </tr>
+            `;
+
+            return;
+        }
+
+        tabla.innerHTML = lista.map(cliente => `
+
+            <tr>
+
+                <td>
+                    <div class="nombre-cliente">
+                        ${escaparHTML(cliente.nombre)}
+                    </div>
+                </td>
+
+                <td>${escaparHTML(cliente.telefono)}</td>
+                <td>${escaparHTML(cliente.correo || '-')}</td>
+                <td>${escaparHTML(cliente.direccion || '-')}</td>
+
+                <td>
+                    <div class="acciones">
+
+                        <button
+                            class="btn-editar"
+                            onclick="editarCliente(${Number(cliente.id)})"
+                        >
+                            Editar
+                        </button>
+
+                        <button
+                            class="btn-eliminar"
+                            onclick="eliminarCliente(${Number(cliente.id)})"
+                        >
+                            Eliminar
+                        </button>
+
+                    </div>
+                </td>
+
+            </tr>
+
+        `).join('');
+    }
+
+    // EDITAR
+
+    function editarCliente(id) {
+
+        const cliente = clientes.find(c => Number(c.id) === Number(id));
+
+        if (cliente) {
+            mostrarFormulario(cliente);
+        }
+    }
+
+    // ERRORES DE LA API
+
+    function obtenerMensajeError(datos) {
+
+        if (datos.telefono) {
+            return 'El teléfono no tiene un formato válido. Revisa los caracteres ingresados.';
+        }
+
+        if (datos.nombre) {
+            return 'Debes ingresar un nombre válido para el cliente.';
+        }
+
+        if (datos.correo) {
+            return 'El correo electrónico no tiene un formato válido.';
+        }
+
+        if (datos.detail) {
+            return datos.detail;
+        }
+
+        if (datos.error) {
+            return datos.error;
+        }
+
+        return 'No fue posible completar la operación. Revisa los datos ingresados.';
+    }
+
+    // CREAR Y ACTUALIZAR
+
+    document.getElementById('cliente-form').addEventListener(
+        'submit',
+        async function(event) {
+
+            event.preventDefault();
+
+            limpiarMensaje();
+
+            if (!validarTelefono()) {
+                mostrarMensaje(
+                    'Corrige el número de teléfono antes de guardar.',
+                    'error'
+                );
+                return;
+            }
+
+            const id = document.getElementById('cliente-id').value;
+
+            const datos = {
+
+                nombre: document.getElementById('nombre').value.trim(),
+                telefono: document.getElementById('telefono').value.trim(),
+                correo: document.getElementById('correo').value.trim(),
+                direccion: document.getElementById('direccion').value.trim()
+
+            };
+
+            const boton = document.getElementById('btn-guardar');
+            boton.disabled = true;
+
+            try {
+
+                const respuesta = await fetch(
+                    id ? `${API_URL}${id}/` : API_URL,
+                    {
+                        method: id ? 'PUT' : 'POST',
+
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': obtenerCSRF()
+                        },
+
+                        credentials: 'same-origin',
+                        body: JSON.stringify(datos)
+                    }
+                );
+
+                const resultado = await respuesta.json();
+
+                if (!respuesta.ok) {
+
+                    const mensaje = obtenerMensajeError(resultado);
+
+                    mostrarMensaje(mensaje, 'error');
+
+                    if (resultado.telefono) {
+                        validarTelefono();
+                    }
+
+                    return;
+                }
+
+                ocultarFormulario();
+
+                await cargarClientes();
+
+                mostrarMensaje(
+                    id
+                        ? 'Cliente actualizado correctamente.'
+                        : 'Cliente registrado correctamente.'
+                );
+
+            } catch (error) {
+
+                mostrarMensaje(
+                    'Ocurrió un problema de comunicación con el servidor.',
+                    'error'
+                );
+
+            } finally {
+
+                boton.disabled = false;
+            }
+        }
+    );
+
+    // ELIMINAR
+
+    async function eliminarCliente(id) {
+
+        const cliente = clientes.find(c => Number(c.id) === Number(id));
+
+        if (!confirm(
+            `¿Estás seguro de eliminar a ${cliente?.nombre || 'este cliente'}?`
+        )) {
+            return;
+        }
+
+        try {
+
+            const respuesta = await fetch(`${API_URL}${id}/`, {
+
+                method: 'DELETE',
+
+                headers: {
+                    'X-CSRFToken': obtenerCSRF()
+                },
+
+                credentials: 'same-origin'
+
+            });
+
+            if (!respuesta.ok) {
+
+                let resultado = {};
+
+                try {
+                    resultado = await respuesta.json();
+                } catch {}
+
+                throw new Error(
+                    resultado.error ||
+                    resultado.detail ||
+                    'No fue posible eliminar el cliente.'
+                );
+            }
+
+            await cargarClientes();
+
+            mostrarMensaje('Cliente eliminado correctamente.');
+
+        } catch (error) {
+
+            mostrarMensaje(error.message, 'error');
+        }
+    }
+
+    // BUSCADOR
+
+    document.getElementById('busqueda').addEventListener(
+        'input',
+        function() {
+            cargarClientes(this.value.trim());
+        }
+    );
+
+    // INICIALIZACIÓN
+
+    cargarClientes();
+
+</script>
+
+</body>
+</html>

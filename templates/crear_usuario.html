@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear usuario | Dulce Arte</title>
+
+    <style>
+        :root {
+            --fondo: #222321;
+            --panel: #2D2E2A;
+            --tarjeta: #33342F;
+            --borde: #484840;
+            --verde: #203D30;
+            --verde-hover: #162D23;
+            --cafe: #594333;
+            --blanco: #F5F4F0;
+            --texto: #E7E5DF;
+            --secundario: #B4B1A9;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--fondo);
+            color: var(--texto);
+            font-family: Arial, Helvetica, sans-serif;
+            padding: 30px 15px;
+        }
+
+        .contenedor {
+            max-width: 650px;
+            margin: auto;
+            background: var(--panel);
+            border: 1px solid var(--borde);
+            border-radius: 12px;
+            padding: 28px;
+        }
+
+        h1 {
+            color: var(--blanco);
+            font-size: 25px;
+            margin-bottom: 8px;
+        }
+
+        .descripcion {
+            color: var(--secundario);
+            font-size: 13px;
+            margin-bottom: 25px;
+        }
+
+        .campo {
+            margin-bottom: 17px;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            background: var(--tarjeta);
+            border: 1px solid var(--borde);
+            border-radius: 7px;
+            color: var(--blanco);
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #78917D;
+        }
+
+        .ayuda {
+            display: block;
+            color: var(--secundario);
+            font-size: 11px;
+            margin-top: 6px;
+        }
+
+        .errorlist {
+            color: #E6AAA3;
+            font-size: 12px;
+            margin: 7px 0;
+            list-style: none;
+        }
+
+        .error-general {
+            background: #512C29;
+            padding: 12px;
+            border-radius: 7px;
+            margin-bottom: 15px;
+            font-size: 12px;
+        }
+
+        .botones {
+            display: flex;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        button, .volver {
+            padding: 12px 17px;
+            border: none;
+            border-radius: 7px;
+            color: var(--blanco);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        button {
+            background: var(--verde);
+        }
+
+        button:hover {
+            background: var(--verde-hover);
+        }
+
+        .volver {
+            background: var(--cafe);
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="contenedor">
+
+    <h1>Crear usuario</h1>
+
+    <p class="descripcion">
+        Registra una nueva cuenta para acceder al sistema Dulce Arte.
+    </p>
+
+    {% if form.non_field_errors %}
+        <div class="error-general">
+            {{ form.non_field_errors }}
+        </div>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+
+        {% for field in form %}
+            <div class="campo">
+
+                <label for="{{ field.id_for_label }}">
+                    {{ field.label }}
+                </label>
+
+                {{ field }}
+
+                {% if field.help_text %}
+                    <span class="ayuda">{{ field.help_text|safe }}</span>
+                {% endif %}
+
+                {{ field.errors }}
+
+            </div>
+        {% endfor %}
+
+        <div class="botones">
+            <button type="submit">Crear cuenta</button>
+
+            <a href="{% url 'pagina_administracion' %}" class="volver">
+                Cancelar
+            </a>
+        </div>
+
+    </form>
+
+</div>
+
+</body>
+</html>

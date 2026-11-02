@@ -1,0 +1,810 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administración | Dulce Arte</title>
+
+    <style>
+        :root {
+            --gris-fondo: #222321;
+            --gris-panel: #2D2E2A;
+            --gris-tarjeta: #33342F;
+            --gris-borde: #484840;
+            --verde: #203D30;
+            --verde-hover: #162D23;
+            --verde-claro: #78917D;
+            --cafe: #594333;
+            --cafe-claro: #A58B70;
+            --blanco: #F5F4F0;
+            --texto: #E7E5DF;
+            --texto-secundario: #B4B1A9;
+            --rojo: #A94C43;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--gris-fondo);
+            color: var(--texto);
+            padding: 30px;
+        }
+
+        .contenedor {
+            max-width: 1400px;
+            margin: auto;
+        }
+
+        header {
+            background: var(--verde);
+            border: 1px solid var(--cafe);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        header h1 {
+            color: var(--blanco);
+            font-size: 26px;
+            margin-bottom: 7px;
+        }
+
+        header p {
+            color: #D0D8D0;
+            font-size: 14px;
+        }
+
+        .boton {
+            display: inline-block;
+            padding: 11px 16px;
+            border-radius: 7px;
+            border: none;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 13px;
+            cursor: pointer;
+            transition: 0.2s;
+            color: var(--blanco);
+            background: var(--verde);
+        }
+
+        .boton:hover {
+            background: var(--verde-hover);
+        }
+
+        .boton-cafe {
+            background: var(--cafe);
+        }
+
+        .boton-cafe:hover {
+            background: #463526;
+        }
+
+        .boton-rojo {
+            background: var(--rojo);
+        }
+
+        .boton-rojo:hover {
+            background: #873B34;
+        }
+
+        .indicadores {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+            gap: 16px;
+            margin-bottom: 25px;
+        }
+
+        .tarjeta {
+            background: var(--gris-tarjeta);
+            border: 1px solid var(--gris-borde);
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .tarjeta p {
+            color: var(--texto-secundario);
+            font-size: 13px;
+            margin-bottom: 12px;
+        }
+
+        .tarjeta h2 {
+            font-size: 29px;
+            color: var(--blanco);
+        }
+
+        .seccion {
+            background: var(--gris-panel);
+            border: 1px solid var(--gris-borde);
+            border-radius: 10px;
+            padding: 22px;
+            margin-bottom: 25px;
+        }
+
+        .seccion-cabecera {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .seccion h2 {
+            font-size: 19px;
+            color: var(--blanco);
+        }
+
+        .tabla-contenedor {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 750px;
+        }
+
+        th, td {
+            padding: 14px 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--gris-borde);
+            font-size: 13px;
+        }
+
+        th {
+            color: var(--cafe-claro);
+            font-weight: bold;
+        }
+
+        td {
+            color: var(--texto);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .estado {
+            display: inline-block;
+            padding: 5px 9px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .activo {
+            color: #A9D3B2;
+            background: #203D30;
+        }
+
+        .inactivo {
+            color: #E6AAA3;
+            background: #512C29;
+        }
+
+        .acciones {
+            display: flex;
+            gap: 7px;
+            flex-wrap: wrap;
+        }
+
+        .acciones form {
+            margin: 0;
+        }
+
+        .acciones .boton {
+            padding: 8px 10px;
+            font-size: 11px;
+        }
+
+        .resumen-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 14px;
+            margin-top: 18px;
+        }
+
+        .resumen-item {
+            background: var(--gris-tarjeta);
+            border: 1px solid var(--gris-borde);
+            border-radius: 8px;
+            padding: 17px;
+        }
+
+        .resumen-item span {
+            display: block;
+            color: var(--texto-secundario);
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+
+        .resumen-item strong {
+            font-size: 23px;
+        }
+
+        .mensaje {
+            padding: 13px 16px;
+            margin-bottom: 18px;
+            border-radius: 7px;
+            background: var(--verde);
+            border: 1px solid var(--verde-claro);
+            color: var(--blanco);
+            font-size: 13px;
+        }
+
+        .mensaje.error {
+            background: #512C29;
+            border-color: var(--rojo);
+        }
+
+        .vacio {
+            color: var(--texto-secundario);
+            text-align: center;
+            padding: 25px;
+        }
+
+        /* Modal */
+
+        .modal-fondo {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.75);
+            padding: 20px;
+            overflow-y: auto;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-fondo.visible {
+            display: flex;
+        }
+
+        .modal {
+            width: 100%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            background: var(--gris-panel);
+            border: 1px solid var(--gris-borde);
+            border-radius: 12px;
+            padding: 25px;
+        }
+
+        .modal-cabecera {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 22px;
+        }
+
+        .modal-cabecera h2 {
+            color: var(--blanco);
+            font-size: 21px;
+        }
+
+        .cerrar-modal {
+            background: transparent;
+            color: var(--texto-secundario);
+            border: none;
+            font-size: 25px;
+            cursor: pointer;
+        }
+
+        .campo {
+            margin-bottom: 16px;
+        }
+
+        .campo label {
+            display: block;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .campo input:not([type="checkbox"]),
+        .campo select {
+            width: 100%;
+            padding: 12px;
+            background: var(--gris-tarjeta);
+            border: 1px solid var(--gris-borde);
+            border-radius: 7px;
+            color: var(--blanco);
+            outline: none;
+        }
+
+        .campo input:focus,
+        .campo select:focus {
+            border-color: var(--verde-claro);
+        }
+
+        .campo select {
+            cursor: pointer;
+        }
+
+        .campo-checkbox label {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+        }
+
+        .campo-checkbox input {
+            accent-color: var(--verde);
+        }
+
+        .ayuda {
+            display: block;
+            color: var(--texto-secundario);
+            font-size: 11px;
+            margin-top: 6px;
+        }
+
+        .errorlist {
+            color: #E6AAA3;
+            font-size: 12px;
+            margin: 7px 0;
+            list-style: none;
+        }
+
+        .botones-modal {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 23px;
+        }
+
+        @media (max-width: 650px) {
+            body {
+                padding: 15px;
+            }
+
+            header {
+                padding: 20px;
+            }
+
+            header h1 {
+                font-size: 22px;
+            }
+
+            .seccion {
+                padding: 16px;
+            }
+
+            .modal {
+                padding: 20px;
+            }
+
+            .botones-modal {
+                flex-direction: column;
+            }
+
+            .botones-modal button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="contenedor">
+
+    <header>
+        <div>
+            <h1>Administración</h1>
+            <p>Gestión de usuarios y resumen general de Dulce Arte.</p>
+        </div>
+
+        <form method="POST" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit" class="boton boton-cafe">
+                Cerrar sesión
+            </button>
+        </form>
+    </header>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="mensaje {% if 'error' in message.tags %}error{% endif %}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <section class="indicadores">
+
+        <div class="tarjeta">
+            <p>Total de usuarios</p>
+            <h2>{{ total_usuarios }}</h2>
+        </div>
+
+        <div class="tarjeta">
+            <p>Usuarios activos</p>
+            <h2>{{ usuarios_activos }}</h2>
+        </div>
+
+        <div class="tarjeta">
+            <p>Usuarios inactivos</p>
+            <h2>{{ usuarios_inactivos }}</h2>
+        </div>
+
+    </section>
+
+    <section class="seccion">
+
+        <div class="seccion-cabecera">
+            <h2>Usuarios del sistema</h2>
+
+            <button
+                type="button"
+                class="boton"
+                onclick="abrirCrearUsuario()"
+            >
+                + Crear usuario
+            </button>
+        </div>
+
+        <div class="tabla-contenedor">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Usuario</th>
+                        <th>Nombre</th>
+                        <th>Correo</th>
+                        <th>Tipo</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for usuario in usuarios %}
+                        <tr>
+                            <td>{{ usuario.username }}</td>
+
+                            <td>
+                                {{ usuario.first_name }}
+                                {{ usuario.last_name }}
+                            </td>
+
+                            <td>
+                                {{ usuario.email|default:"Sin correo" }}
+                            </td>
+
+                            <td>
+                                {% if usuario.is_superuser or usuario.is_staff %}
+                                    Administrador
+                                {% else %}
+                                    Usuario normal
+                                {% endif %}
+                            </td>
+
+                            <td>
+                                {% if usuario.is_active %}
+                                    <span class="estado activo">Activo</span>
+                                {% else %}
+                                    <span class="estado inactivo">Inactivo</span>
+                                {% endif %}
+                            </td>
+
+                            <td>
+                                <div class="acciones">
+
+                                    {% if not usuario.is_superuser %}
+
+                                        <button
+                                            type="button"
+                                            class="boton boton-cafe"
+                                            data-id="{{ usuario.id }}"
+                                            data-username="{{ usuario.username }}"
+                                            data-first-name="{{ usuario.first_name }}"
+                                            data-last-name="{{ usuario.last_name }}"
+                                            data-email="{{ usuario.email }}"
+                                            data-rol="{% if usuario.is_staff %}administrador{% else %}usuario{% endif %}"
+                                            data-active="{{ usuario.is_active|yesno:'true,false' }}"
+                                            onclick="abrirEditarUsuario(this)"
+                                        >
+                                            Editar
+                                        </button>
+
+                                        <form method="POST" action="{% url 'pagina_administracion' %}">
+                                            {% csrf_token %}
+
+                                            <input type="hidden" name="accion" value="estado">
+                                            <input type="hidden" name="usuario_id" value="{{ usuario.id }}">
+
+                                            <button
+                                                type="submit"
+                                                class="boton {% if usuario.is_active %}boton-rojo{% endif %}"
+                                                onclick="return confirm('¿Deseas cambiar el estado de esta cuenta?');"
+                                            >
+                                                {% if usuario.is_active %}
+                                                    Desactivar
+                                                {% else %}
+                                                    Activar
+                                                {% endif %}
+                                            </button>
+                                        </form>
+
+                                        <form method="POST" action="{% url 'pagina_administracion' %}">
+                                            {% csrf_token %}
+
+                                            <input type="hidden" name="accion" value="eliminar">
+                                            <input type="hidden" name="usuario_id" value="{{ usuario.id }}">
+
+                                            <button
+                                                type="submit"
+                                                class="boton boton-rojo"
+                                                onclick="return confirm('¿Estás seguro de eliminar este usuario? Esta acción no se puede deshacer.');"
+                                            >
+                                                Eliminar
+                                            </button>
+                                        </form>
+
+                                    {% else %}
+                                        <span class="estado activo">Protegido</span>
+                                    {% endif %}
+
+                                </div>
+                            </td>
+                        </tr>
+
+                    {% empty %}
+                        <tr>
+                            <td colspan="6" class="vacio">
+                                No existen usuarios registrados.
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </section>
+
+    <section class="seccion">
+
+        <h2>Resumen del sistema</h2>
+
+        <div class="resumen-grid">
+
+            <div class="resumen-item">
+                <span>Clientes</span>
+                <strong>{{ resumen.Cliente }}</strong>
+            </div>
+
+            <div class="resumen-item">
+                <span>Pedidos</span>
+                <strong>{{ resumen.Pedido }}</strong>
+            </div>
+
+            <div class="resumen-item">
+                <span>Productos</span>
+                <strong>{{ resumen.Producto }}</strong>
+            </div>
+
+            <div class="resumen-item">
+                <span>Insumos</span>
+                <strong>{{ resumen.Insumo }}</strong>
+            </div>
+
+            <div class="resumen-item">
+                <span>Despachos</span>
+                <strong>{{ resumen.Despacho }}</strong>
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+<!-- Modal para crear y editar usuarios -->
+
+<div class="modal-fondo" id="modal-usuario">
+
+    <div class="modal">
+
+        <div class="modal-cabecera">
+            <h2 id="titulo-modal">Crear usuario</h2>
+
+            <button
+                type="button"
+                class="cerrar-modal"
+                onclick="cerrarModal()"
+                aria-label="Cerrar"
+            >
+                &times;
+            </button>
+        </div>
+
+        <!-- Formulario de creación -->
+
+        <form
+            method="POST"
+            action="{% url 'pagina_administracion' %}"
+            id="form-crear"
+        >
+            {% csrf_token %}
+
+            <input type="hidden" name="accion" value="crear">
+
+            {% for field in crear_form %}
+                <div class="campo">
+
+                    <label for="{{ field.id_for_label }}">
+                        {{ field.label }}
+                    </label>
+
+                    {{ field }}
+
+                    {% if field.help_text %}
+                        <span class="ayuda">{{ field.help_text|safe }}</span>
+                    {% endif %}
+
+                    {{ field.errors }}
+
+                </div>
+            {% endfor %}
+
+            <div class="botones-modal">
+                <button
+                    type="button"
+                    class="boton boton-cafe"
+                    onclick="cerrarModal()"
+                >
+                    Cancelar
+                </button>
+
+                <button type="submit" class="boton">
+                    Crear usuario
+                </button>
+            </div>
+        </form>
+
+        <!-- Formulario de edición -->
+
+        <form
+            method="POST"
+            action="{% url 'pagina_administracion' %}"
+            id="form-editar"
+            style="display: none;"
+        >
+            {% csrf_token %}
+
+            <input type="hidden" name="accion" value="editar">
+            <input
+                type="hidden"
+                name="usuario_id"
+                id="editar-id"
+                value="{{ usuario_edicion_id }}"
+            >
+
+            {% for field in editar_form %}
+                <div class="campo {% if field.name == 'is_active' %}campo-checkbox{% endif %}">
+
+                    <label for="{{ field.id_for_label }}">
+                        {% if field.name == "is_active" %}
+                            {{ field }}
+                        {% endif %}
+
+                        {{ field.label }}
+                    </label>
+
+                    {% if field.name != "is_active" %}
+                        {{ field }}
+                    {% endif %}
+
+                    {{ field.errors }}
+
+                </div>
+            {% endfor %}
+
+            <div class="botones-modal">
+                <button
+                    type="button"
+                    class="boton boton-cafe"
+                    onclick="cerrarModal()"
+                >
+                    Cancelar
+                </button>
+
+                <button type="submit" class="boton">
+                    Guardar cambios
+                </button>
+            </div>
+        </form>
+
+    </div>
+
+</div>
+
+
+<script>
+    const modalUsuario = document.getElementById("modal-usuario");
+    const formCrear = document.getElementById("form-crear");
+    const formEditar = document.getElementById("form-editar");
+    const tituloModal = document.getElementById("titulo-modal");
+
+    function abrirCrearUsuario() {
+        formCrear.style.display = "block";
+        formEditar.style.display = "none";
+
+        tituloModal.textContent = "Crear usuario";
+        modalUsuario.classList.add("visible");
+    }
+
+    function abrirEditarUsuario(boton) {
+        formCrear.style.display = "none";
+        formEditar.style.display = "block";
+
+        tituloModal.textContent = "Editar usuario";
+
+        document.getElementById("editar-id").value = boton.dataset.id;
+
+        formEditar.querySelector('[name="username"]').value =
+            boton.dataset.username;
+
+        formEditar.querySelector('[name="first_name"]').value =
+            boton.dataset.firstName;
+
+        formEditar.querySelector('[name="last_name"]').value =
+            boton.dataset.lastName;
+
+        formEditar.querySelector('[name="email"]').value =
+            boton.dataset.email;
+
+        formEditar.querySelector('[name="rol"]').value =
+            boton.dataset.rol;
+
+        formEditar.querySelector('[name="is_active"]').checked =
+            boton.dataset.active === "true";
+
+        modalUsuario.classList.add("visible");
+    }
+
+    function cerrarModal() {
+        modalUsuario.classList.remove("visible");
+    }
+
+    modalUsuario.addEventListener("click", function(event) {
+        if (event.target === modalUsuario) {
+            cerrarModal();
+        }
+    });
+
+    document.addEventListener("keydown", function(event) {
+        if (event.key === "Escape") {
+            cerrarModal();
+        }
+    });
+
+    const modalAbierto = "{{ modal_abierto|default:''|escapejs }}";
+
+    if (modalAbierto === "crear") {
+        abrirCrearUsuario();
+    } else if (modalAbierto === "editar") {
+        formCrear.style.display = "none";
+        formEditar.style.display = "block";
+
+        tituloModal.textContent = "Editar usuario";
+        modalUsuario.classList.add("visible");
+    }
+</script>
+
+</body>
+</html>

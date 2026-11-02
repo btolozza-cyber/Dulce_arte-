@@ -1,0 +1,1316 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dulce Arte | Despachos</title>
+
+    <style>
+        :root {
+            --gris-fondo: #222321;
+            --gris-panel: #2D2E2A;
+            --gris-tarjeta: #33342F;
+            --gris-borde: #484840;
+            --verde: #203D30;
+            --verde-hover: #162D23;
+            --verde-claro: #78917D;
+            --cafe: #594333;
+            --cafe-oscuro: #403024;
+            --cafe-claro: #A58B70;
+            --blanco: #F5F4F0;
+            --texto: #E7E5DF;
+            --texto-secundario: #B4B1A9;
+            --rojo: #A94B43;
+            --amarillo: #B58B43;
+            --azul: #557C9C;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--gris-fondo);
+            color: var(--texto);
+            font-family: Arial, Helvetica, sans-serif;
+            min-height: 100vh;
+        }
+
+        header {
+            background: var(--verde);
+            border-bottom: 3px solid var(--cafe);
+            padding: 20px 5%;
+        }
+
+        .header-contenido {
+            max-width: 1450px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .marca h1 {
+            color: var(--blanco);
+            font-size: 25px;
+            margin-bottom: 5px;
+        }
+
+        .marca p {
+            color: #C7D0C8;
+            font-size: 13px;
+        }
+
+        .volver {
+            text-decoration: none;
+            color: var(--blanco);
+            border: 1px solid #718477;
+            padding: 10px 15px;
+            border-radius: 7px;
+            font-size: 13px;
+            transition: .2s;
+        }
+
+        .volver:hover {
+            background: var(--verde-hover);
+        }
+
+        main {
+            max-width: 1450px;
+            margin: 30px auto;
+            padding: 0 25px 40px;
+        }
+
+        .titulo-seccion {
+            margin-bottom: 22px;
+        }
+
+        .titulo-seccion h2 {
+            font-size: 25px;
+            color: var(--blanco);
+            margin-bottom: 7px;
+        }
+
+        .titulo-seccion p {
+            color: var(--texto-secundario);
+            font-size: 14px;
+        }
+
+        .resumen {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .tarjeta-resumen {
+            background: var(--gris-tarjeta);
+            border: 1px solid var(--gris-borde);
+            border-radius: 10px;
+            padding: 19px;
+        }
+
+        .tarjeta-resumen span {
+            display: block;
+            color: var(--texto-secundario);
+            font-size: 13px;
+            margin-bottom: 12px;
+        }
+
+        .tarjeta-resumen strong {
+            font-size: 28px;
+            color: var(--blanco);
+        }
+
+        .tarjeta-resumen small {
+            display: block;
+            color: var(--texto-secundario);
+            margin-top: 5px;
+            font-size: 11px;
+        }
+
+        .panel {
+            background: var(--gris-panel);
+            border: 1px solid var(--gris-borde);
+            border-radius: 11px;
+            padding: 23px;
+            margin-bottom: 22px;
+        }
+
+        .panel-cabecera {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .panel-cabecera h3 {
+            font-size: 18px;
+            color: var(--blanco);
+        }
+
+        .boton {
+            border: none;
+            border-radius: 7px;
+            padding: 11px 16px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: bold;
+            transition: .2s;
+        }
+
+        .boton-verde {
+            background: var(--verde);
+            color: var(--blanco);
+        }
+
+        .boton-verde:hover {
+            background: var(--verde-hover);
+        }
+
+        .boton-cafe {
+            background: var(--cafe);
+            color: var(--blanco);
+        }
+
+        .boton-cafe:hover {
+            background: var(--cafe-oscuro);
+        }
+
+        .boton-secundario {
+            background: #41423D;
+            color: var(--texto);
+            border: 1px solid var(--gris-borde);
+        }
+
+        .boton-secundario:hover {
+            background: #50514A;
+        }
+
+        .boton-peligro {
+            background: #63352F;
+            color: var(--blanco);
+        }
+
+        .filtros {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            background: #252622;
+            color: var(--texto);
+            border: 1px solid var(--gris-borde);
+            border-radius: 7px;
+            padding: 11px 12px;
+            font-family: inherit;
+            font-size: 13px;
+            outline: none;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--verde-claro);
+        }
+
+        input::placeholder, textarea::placeholder {
+            color: #89877F;
+        }
+
+        select option {
+            background: var(--gris-panel);
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            color: var(--texto-secundario);
+            margin-bottom: 7px;
+        }
+
+        .tabla-contenedor {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 950px;
+        }
+
+        th {
+            color: var(--cafe-claro);
+            font-size: 12px;
+            text-align: left;
+            padding: 14px 12px;
+            border-bottom: 1px solid var(--gris-borde);
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 15px 12px;
+            font-size: 13px;
+            border-bottom: 1px solid #41423C;
+            vertical-align: middle;
+        }
+
+        tbody tr:hover {
+            background: #373832;
+        }
+
+        .cliente {
+            color: var(--blanco);
+            font-weight: bold;
+        }
+
+        .secundario {
+            display: block;
+            color: var(--texto-secundario);
+            font-size: 11px;
+            margin-top: 5px;
+        }
+
+        .estado {
+            display: inline-block;
+            border-radius: 20px;
+            padding: 6px 10px;
+            font-size: 11px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .pendiente {
+            background: #594A2F;
+            color: #E9C987;
+        }
+
+        .en_ruta {
+            background: #304B61;
+            color: #A6C8E4;
+        }
+
+        .entregado {
+            background: #294B37;
+            color: #A7D4B1;
+        }
+
+        .incidencia {
+            background: #613832;
+            color: #E7AAA1;
+        }
+
+        .acciones {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+        }
+
+        .acciones button {
+            padding: 7px 9px;
+            font-size: 11px;
+        }
+
+        .mensaje-vacio {
+            text-align: center;
+            color: var(--texto-secundario);
+            padding: 35px 10px;
+        }
+
+        .formulario {
+            display: none;
+        }
+
+        .formulario.activo {
+            display: block;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 17px;
+        }
+
+        .campo.completo {
+            grid-column: 1 / -1;
+        }
+
+        textarea {
+            min-height: 85px;
+            resize: vertical;
+        }
+
+        .ayuda {
+            color: var(--texto-secundario);
+            font-size: 11px;
+            margin-top: 6px;
+        }
+
+        .form-acciones {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .mensaje {
+            display: none;
+            padding: 12px 15px;
+            border-radius: 7px;
+            font-size: 13px;
+            margin-bottom: 17px;
+        }
+
+        .mensaje.exito {
+            display: block;
+            background: #294B37;
+            color: #B7DCC0;
+            border: 1px solid #426B50;
+        }
+
+        .mensaje.error {
+            display: block;
+            background: #613832;
+            color: #F0B6AD;
+            border: 1px solid #82483F;
+        }
+
+        .detalle {
+            display: none;
+            margin-top: 18px;
+            background: #272823;
+            border: 1px solid var(--gris-borde);
+            border-radius: 8px;
+            padding: 18px;
+        }
+
+        .detalle.activo {
+            display: block;
+        }
+
+        .detalle-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .detalle-item span {
+            display: block;
+            font-size: 11px;
+            color: var(--texto-secundario);
+            margin-bottom: 6px;
+        }
+
+        .detalle-item strong {
+            font-size: 13px;
+            color: var(--blanco);
+            overflow-wrap: anywhere;
+        }
+
+        .detalle-item a {
+            color: var(--verde-claro);
+        }
+
+        .cargando {
+            color: var(--texto-secundario);
+            text-align: center;
+            padding: 25px;
+        }
+
+        @media (max-width: 900px) {
+            .resumen {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .filtros {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .filtros input {
+                grid-column: 1 / -1;
+            }
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 17px 20px;
+            }
+
+            .header-contenido {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            main {
+                padding: 0 15px 30px;
+                margin-top: 22px;
+            }
+
+            .resumen {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .filtros, .form-grid, .detalle-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .campo.completo {
+                grid-column: auto;
+            }
+
+            .panel {
+                padding: 16px;
+            }
+
+            .panel-cabecera {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .form-acciones {
+                flex-direction: column-reverse;
+            }
+
+            .form-acciones button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="header-contenido">
+        <div class="marca">
+            <h1>Dulce Arte</h1>
+            <p>Sistema de gestión y trazabilidad</p>
+        </div>
+
+        <a href="/" class="volver">← Volver al inicio</a>
+    </div>
+</header>
+
+<main>
+
+    <section class="titulo-seccion">
+        <h2>Gestión de despachos</h2>
+        <p>Organiza las entregas, supervisa su estado y registra los comprobantes.</p>
+    </section>
+
+    <section class="resumen">
+        <div class="tarjeta-resumen">
+            <span>Total de despachos</span>
+            <strong id="totalDespachos">0</strong>
+            <small>Registros existentes</small>
+        </div>
+
+        <div class="tarjeta-resumen">
+            <span>Pendientes</span>
+            <strong id="totalPendientes">0</strong>
+            <small>Esperando salida</small>
+        </div>
+
+        <div class="tarjeta-resumen">
+            <span>En ruta</span>
+            <strong id="totalEnRuta">0</strong>
+            <small>Entregas en curso</small>
+        </div>
+
+        <div class="tarjeta-resumen">
+            <span>Entregados</span>
+            <strong id="totalEntregados">0</strong>
+            <small>Entregas completadas</small>
+        </div>
+
+        <div class="tarjeta-resumen">
+            <span>Incidencias</span>
+            <strong id="totalIncidencias">0</strong>
+            <small>Requieren atención</small>
+        </div>
+    </section>
+
+    <section class="panel formulario" id="panelFormulario">
+
+        <div class="panel-cabecera">
+            <h3>Registrar nuevo despacho</h3>
+        </div>
+
+        <div id="mensajeFormulario" class="mensaje"></div>
+
+        <form id="formDespacho" enctype="multipart/form-data">
+
+            <div class="form-grid">
+
+                <div class="campo">
+                    <label for="pedido">Pedido listo *</label>
+                    <select id="pedido" name="pedido" required>
+                        <option value="">Selecciona un pedido</option>
+                    </select>
+                    <p class="ayuda">Solo aparecen pedidos que estén listos y sin despacho asociado.</p>
+                </div>
+
+                <div class="campo">
+                    <label for="fechaProgramada">Fecha y hora programada *</label>
+                    <input
+                        type="datetime-local"
+                        id="fechaProgramada"
+                        name="fecha_programada"
+                        required
+                    >
+                </div>
+
+                <div class="campo completo">
+                    <label for="direccion">Dirección de entrega *</label>
+                    <textarea
+                        id="direccion"
+                        name="direccion_entrega"
+                        placeholder="Ingresa la dirección completa de entrega"
+                        required
+                    ></textarea>
+                </div>
+
+                <div class="campo">
+                    <label for="transportista">Transportista</label>
+                    <input
+                        type="text"
+                        id="transportista"
+                        name="transportista"
+                        maxlength="150"
+                        placeholder="Nombre del transportista"
+                    >
+                </div>
+
+                <div class="campo">
+                    <label for="comprobante">Comprobante</label>
+                    <input
+                        type="file"
+                        id="comprobante"
+                        name="comprobante"
+                        accept=".pdf,.png,.jpg,.jpeg"
+                    >
+                    <p class="ayuda">PDF, PNG o JPG. Máximo 5 MB.</p>
+                </div>
+
+                <div class="campo completo">
+                    <label for="observacion">Observaciones</label>
+                    <textarea
+                        id="observacion"
+                        name="observacion"
+                        placeholder="Indicaciones adicionales para el despacho..."
+                    ></textarea>
+                </div>
+
+            </div>
+
+            <div class="form-acciones">
+                <button type="button" class="boton boton-secundario" id="btnCancelarFormulario">
+                    Cancelar
+                </button>
+
+                <button type="submit" class="boton boton-verde" id="btnGuardar">
+                    Registrar despacho
+                </button>
+            </div>
+
+        </form>
+    </section>
+
+    <section class="panel">
+
+        <div class="panel-cabecera">
+            <h3>Listado de despachos</h3>
+
+            <button class="boton boton-verde" id="btnNuevo">
+                + Nuevo despacho
+            </button>
+        </div>
+
+        <div id="mensajeGeneral" class="mensaje"></div>
+
+        <div class="filtros">
+
+            <input
+                type="search"
+                id="busqueda"
+                placeholder="Buscar cliente, dirección o transportista..."
+            >
+
+            <select id="filtroEstado">
+                <option value="">Todos los estados</option>
+                <option value="pendiente">Pendiente</option>
+                <option value="en_ruta">En ruta</option>
+                <option value="entregado">Entregado</option>
+                <option value="incidencia">Incidencia</option>
+            </select>
+
+            <select id="orden">
+                <option value="fecha_programada">Fecha programada</option>
+                <option value="-fecha_programada">Fecha programada (más recientes)</option>
+                <option value="-fecha_creacion">Últimos registrados</option>
+            </select>
+
+        </div>
+
+        <div class="tabla-contenedor">
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Despacho</th>
+                        <th>Cliente</th>
+                        <th>Dirección</th>
+                        <th>Fecha programada</th>
+                        <th>Transportista</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody id="tablaDespachos">
+                    <tr>
+                        <td colspan="7" class="cargando">Cargando despachos...</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+        <div id="detalleDespacho" class="detalle"></div>
+
+    </section>
+
+</main>
+
+<script>
+    const API_DESPACHOS = '/api/despachos/';
+    const API_PEDIDOS = '/api/pedidos/';
+
+    let despachos = [];
+    let pedidosDisponibles = [];
+
+    const $ = id => document.getElementById(id);
+
+    function obtenerCSRF() {
+        const cookies = document.cookie.split(';');
+
+        for (const cookie of cookies) {
+            const valor = cookie.trim();
+
+            if (valor.startsWith('csrftoken=')) {
+                return decodeURIComponent(valor.substring(10));
+            }
+        }
+
+        return '';
+    }
+
+    async function solicitud(url, opciones = {}) {
+
+        const metodo = (opciones.method || 'GET').toUpperCase();
+
+        const headers = new Headers(opciones.headers || {});
+
+        if (!['GET', 'HEAD', 'OPTIONS'].includes(metodo)) {
+            headers.set('X-CSRFToken', obtenerCSRF());
+        }
+
+        const respuesta = await fetch(url, {
+            ...opciones,
+            method: metodo,
+            headers,
+            credentials: 'same-origin'
+        });
+
+        const tipo = respuesta.headers.get('content-type') || '';
+
+        let datos = null;
+
+        if (tipo.includes('application/json')) {
+            datos = await respuesta.json();
+        } else {
+            datos = await respuesta.text();
+        }
+
+        if (!respuesta.ok) {
+
+            if (respuesta.status === 401 || respuesta.status === 403) {
+                throw new Error(
+                    'No tienes autorización para realizar esta operación. Verifica tu sesión.'
+                );
+            }
+
+            let mensaje = 'Ocurrió un error en la solicitud.';
+
+            if (typeof datos === 'string' && datos) {
+                mensaje = datos;
+            } else if (datos) {
+                mensaje =
+                    datos.error ||
+                    datos.detail ||
+                    datos.mensaje ||
+                    Object.entries(datos)
+                        .map(([campo, errores]) => {
+                            const texto = Array.isArray(errores)
+                                ? errores.join(', ')
+                                : errores;
+
+                            return `${campo}: ${texto}`;
+                        })
+                        .join(' | ') ||
+                    mensaje;
+            }
+
+            throw new Error(mensaje);
+        }
+
+        return datos;
+    }
+
+    function obtenerResultados(datos) {
+        if (Array.isArray(datos)) return datos;
+        if (datos && Array.isArray(datos.results)) return datos.results;
+        return [];
+    }
+
+    function escapar(valor) {
+        return String(valor ?? '').replace(/[&<>"']/g, caracter => ({
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#039;'
+        })[caracter]);
+    }
+
+    function formatoFecha(fecha) {
+        if (!fecha) return '—';
+
+        const valor = new Date(fecha);
+
+        if (Number.isNaN(valor.getTime())) return '—';
+
+        return valor.toLocaleString('es-CL', {
+            dateStyle: 'short',
+            timeStyle: 'short'
+        });
+    }
+
+    function nombreEstado(estado) {
+        const nombres = {
+            pendiente: 'Pendiente',
+            en_ruta: 'En ruta',
+            entregado: 'Entregado',
+            incidencia: 'Incidencia'
+        };
+
+        return nombres[estado] || estado;
+    }
+
+    function mostrarMensaje(elemento, texto, tipo) {
+        elemento.textContent = texto;
+        elemento.className = `mensaje ${tipo}`;
+    }
+
+    function limpiarMensaje(elemento) {
+        elemento.textContent = '';
+        elemento.className = 'mensaje';
+    }
+
+    async function cargarTodo() {
+        try {
+            const [datosDespachos, datosPedidos] = await Promise.all([
+                solicitud(API_DESPACHOS),
+                solicitud(API_PEDIDOS + '?estado=listo')
+            ]);
+
+            despachos = obtenerResultados(datosDespachos);
+            const pedidos = obtenerResultados(datosPedidos);
+
+            const pedidosConDespacho = new Set(
+                despachos.map(d => Number(d.pedido))
+            );
+
+            pedidosDisponibles = pedidos.filter(
+                p => !pedidosConDespacho.has(Number(p.id))
+            );
+
+            actualizarResumen();
+            renderizarTabla();
+            renderizarPedidos();
+
+        } catch (error) {
+            mostrarMensaje($('mensajeGeneral'), error.message, 'error');
+
+            $('tablaDespachos').innerHTML = `
+                <tr>
+                    <td colspan="7" class="mensaje-vacio">
+                        No fue posible cargar la información.
+                    </td>
+                </tr>
+            `;
+        }
+    }
+
+    function actualizarResumen() {
+
+        $('totalDespachos').textContent = despachos.length;
+
+        $('totalPendientes').textContent =
+            despachos.filter(d => d.estado === 'pendiente').length;
+
+        $('totalEnRuta').textContent =
+            despachos.filter(d => d.estado === 'en_ruta').length;
+
+        $('totalEntregados').textContent =
+            despachos.filter(d => d.estado === 'entregado').length;
+
+        $('totalIncidencias').textContent =
+            despachos.filter(d => d.estado === 'incidencia').length;
+    }
+
+    function renderizarPedidos() {
+
+        const selector = $('pedido');
+
+        selector.innerHTML = `
+            <option value="">Selecciona un pedido</option>
+        `;
+
+        pedidosDisponibles.forEach(pedido => {
+
+            const opcion = document.createElement('option');
+
+            opcion.value = pedido.id;
+
+            opcion.textContent =
+                `Pedido #${pedido.id} — ${pedido.cliente_nombre || 'Cliente'} — ${pedido.total ?? 'Total no disponible'}`;
+
+            selector.appendChild(opcion);
+        });
+
+        if (!pedidosDisponibles.length) {
+            selector.innerHTML = `
+                <option value="">No hay pedidos disponibles</option>
+            `;
+        }
+    }
+
+    function renderizarTabla() {
+
+        const busqueda = $('busqueda').value.toLowerCase().trim();
+        const estado = $('filtroEstado').value;
+        const orden = $('orden').value;
+
+        let filtrados = despachos.filter(d => {
+
+            const texto = [
+                d.pedido_cliente,
+                d.direccion_entrega,
+                d.transportista,
+                d.receptor,
+                d.pedido
+            ].join(' ').toLowerCase();
+
+            const coincideBusqueda = texto.includes(busqueda);
+            const coincideEstado = !estado || d.estado === estado;
+
+            return coincideBusqueda && coincideEstado;
+        });
+
+        filtrados.sort((a, b) => {
+
+            const campo = orden.replace('-', '');
+            const diferencia =
+                new Date(a[campo]) - new Date(b[campo]);
+
+            return orden.startsWith('-') ? -diferencia : diferencia;
+        });
+
+        const tabla = $('tablaDespachos');
+
+        if (!filtrados.length) {
+            tabla.innerHTML = `
+                <tr>
+                    <td colspan="7" class="mensaje-vacio">
+                        No se encontraron despachos.
+                    </td>
+                </tr>
+            `;
+            return;
+        }
+
+        tabla.innerHTML = filtrados.map(d => `
+
+            <tr>
+                <td>
+                    <span class="cliente">#${d.id}</span>
+                    <span class="secundario">Pedido #${d.pedido}</span>
+                </td>
+
+                <td>
+                    <span class="cliente">${escapar(d.pedido_cliente || 'Sin nombre')}</span>
+                </td>
+
+                <td>${escapar(d.direccion_entrega)}</td>
+
+                <td>${formatoFecha(d.fecha_programada)}</td>
+
+                <td>${escapar(d.transportista || 'Sin asignar')}</td>
+
+                <td>
+                    <span class="estado ${escapar(d.estado)}">
+                        ${nombreEstado(d.estado)}
+                    </span>
+                </td>
+
+                <td>
+                    <div class="acciones">
+                        <button
+                            class="boton boton-secundario"
+                            onclick="verDetalle(${d.id})"
+                        >
+                            Ver
+                        </button>
+
+                        ${botonesEstado(d)}
+                    </div>
+                </td>
+            </tr>
+
+        `).join('');
+    }
+
+    function botonesEstado(d) {
+
+        if (d.estado === 'pendiente') {
+            return `
+                <button
+                    class="boton boton-verde"
+                    onclick="cambiarEstado(${d.id}, 'en_ruta')"
+                >
+                    Iniciar ruta
+                </button>
+            `;
+        }
+
+        if (d.estado === 'en_ruta') {
+            return `
+                <button
+                    class="boton boton-verde"
+                    onclick="marcarEntregado(${d.id})"
+                >
+                    Entregado
+                </button>
+
+                <button
+                    class="boton boton-peligro"
+                    onclick="cambiarEstado(${d.id}, 'incidencia')"
+                >
+                    Incidencia
+                </button>
+            `;
+        }
+
+        if (d.estado === 'incidencia') {
+            return `
+                <button
+                    class="boton boton-verde"
+                    onclick="cambiarEstado(${d.id}, 'en_ruta')"
+                >
+                    Reanudar ruta
+                </button>
+            `;
+        }
+
+        return '';
+    }
+
+    function verDetalle(id) {
+
+        const d = despachos.find(item => item.id === id);
+
+        if (!d) return;
+
+        const comprobante = d.comprobante
+            ? `<a href="${escapar(d.comprobante)}" target="_blank" rel="noopener noreferrer">Ver comprobante</a>`
+            : 'Sin comprobante';
+
+        const detalle = $('detalleDespacho');
+
+        detalle.innerHTML = `
+
+            <div class="panel-cabecera">
+                <h3>Detalle del despacho #${d.id}</h3>
+
+                <button
+                    class="boton boton-secundario"
+                    onclick="cerrarDetalle()"
+                >
+                    Cerrar
+                </button>
+            </div>
+
+            <div class="detalle-grid">
+
+                <div class="detalle-item">
+                    <span>Pedido</span>
+                    <strong>#${d.pedido}</strong>
+                </div>
+
+                <div class="detalle-item">
+                    <span>Cliente</span>
+                    <strong>${escapar(d.pedido_cliente || 'Sin nombre')}</strong>
+                </div>
+
+                <div class="detalle-item">
+                    <span>Estado</span>
+                    <strong>${nombreEstado(d.estado)}</strong>
+                </div>
+
+                <div class="detalle-item">
+                    <span>Fecha programada</span>
+                    <strong>${formatoFecha(d.fecha_programada)}</strong>
+                </div>
+
+                <div class="detalle-item">
+                    <span>Fecha de entrega real</span>
+                    <strong>${formatoFecha(d.fecha_entrega_real)}</strong>
+                </div>
+
+                <div class="detalle-item">
+                    <span>Transportista</span>
+                    <strong>${escapar(d.transportista || 'Sin asignar')}</strong>
+                </div>
+
+                <div class="detalle-item">
+                    <span>Receptor</span>
+                    <strong>${escapar(d.receptor || 'Sin registrar')}</strong>
+                </div>
+
+                <div class="detalle-item">
+                    <span>Comprobante</span>
+                    <strong>${comprobante}</strong>
+                </div>
+
+                <div class="detalle-item">
+                    <span>Fecha de creación</span>
+                    <strong>${formatoFecha(d.fecha_creacion)}</strong>
+                </div>
+
+                <div class="detalle-item">
+                    <span>Dirección</span>
+                    <strong>${escapar(d.direccion_entrega)}</strong>
+                </div>
+
+                <div class="detalle-item">
+                    <span>Observaciones</span>
+                    <strong>${escapar(d.observacion || 'Sin observaciones')}</strong>
+                </div>
+
+            </div>
+        `;
+
+        detalle.classList.add('activo');
+        detalle.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function cerrarDetalle() {
+        $('detalleDespacho').classList.remove('activo');
+    }
+
+    async function cambiarEstado(id, nuevoEstado, receptor = null) {
+
+        const datos = {
+            estado: nuevoEstado
+        };
+
+        if (receptor !== null) {
+            datos.receptor = receptor;
+        }
+
+        try {
+
+            await solicitud(`${API_DESPACHOS}${id}/cambiar-estado/`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(datos)
+            });
+
+            mostrarMensaje(
+                $('mensajeGeneral'),
+                'Estado del despacho actualizado correctamente.',
+                'exito'
+            );
+
+            cerrarDetalle();
+            await cargarTodo();
+
+        } catch (error) {
+            mostrarMensaje(
+                $('mensajeGeneral'),
+                error.message,
+                'error'
+            );
+        }
+    }
+
+    async function marcarEntregado(id) {
+
+        const receptor = prompt(
+            'Ingresa el nombre de la persona que recibió el pedido:'
+        );
+
+        if (receptor === null) return;
+
+        if (!receptor.trim()) {
+            mostrarMensaje(
+                $('mensajeGeneral'),
+                'Debes indicar quién recibió el pedido.',
+                'error'
+            );
+            return;
+        }
+
+        await cambiarEstado(id, 'entregado', receptor.trim());
+    }
+
+    function abrirFormulario() {
+        limpiarMensaje($('mensajeFormulario'));
+
+        $('panelFormulario').classList.add('activo');
+
+        $('panelFormulario').scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    }
+
+    function cerrarFormulario() {
+        $('panelFormulario').classList.remove('activo');
+        $('formDespacho').reset();
+        limpiarMensaje($('mensajeFormulario'));
+    }
+
+    async function crearDespacho(evento) {
+
+        evento.preventDefault();
+
+        const formulario = $('formDespacho');
+        const boton = $('btnGuardar');
+
+        limpiarMensaje($('mensajeFormulario'));
+
+        const archivo = $('comprobante').files[0];
+
+        if (archivo) {
+
+            const extensiones = ['pdf', 'png', 'jpg', 'jpeg'];
+            const extension = archivo.name.split('.').pop().toLowerCase();
+
+            if (!extensiones.includes(extension)) {
+                mostrarMensaje(
+                    $('mensajeFormulario'),
+                    'El comprobante debe ser PDF, PNG o JPG.',
+                    'error'
+                );
+                return;
+            }
+
+            if (archivo.size > 5 * 1024 * 1024) {
+                mostrarMensaje(
+                    $('mensajeFormulario'),
+                    'El comprobante no puede superar los 5 MB.',
+                    'error'
+                );
+                return;
+            }
+        }
+
+        const fecha = new Date($('fechaProgramada').value);
+
+        if (!fecha || Number.isNaN(fecha.getTime()) || fecha <= new Date()) {
+            mostrarMensaje(
+                $('mensajeFormulario'),
+                'La fecha programada debe ser futura.',
+                'error'
+            );
+            return;
+        }
+
+        const datos = new FormData(formulario);
+
+        boton.disabled = true;
+        boton.textContent = 'Registrando...';
+
+        try {
+
+            await solicitud(API_DESPACHOS, {
+                method: 'POST',
+                body: datos
+            });
+
+            mostrarMensaje(
+                $('mensajeGeneral'),
+                'Despacho registrado correctamente.',
+                'exito'
+            );
+
+            cerrarFormulario();
+            await cargarTodo();
+
+        } catch (error) {
+
+            mostrarMensaje(
+                $('mensajeFormulario'),
+                error.message,
+                'error'
+            );
+
+        } finally {
+
+            boton.disabled = false;
+            boton.textContent = 'Registrar despacho';
+        }
+    }
+
+    $('btnNuevo').addEventListener('click', abrirFormulario);
+
+    $('btnCancelarFormulario').addEventListener(
+        'click',
+        cerrarFormulario
+    );
+
+    $('formDespacho').addEventListener(
+        'submit',
+        crearDespacho
+    );
+
+    $('busqueda').addEventListener(
+        'input',
+        renderizarTabla
+    );
+
+    $('filtroEstado').addEventListener(
+        'change',
+        renderizarTabla
+    );
+
+    $('orden').addEventListener(
+        'change',
+        renderizarTabla
+    );
+
+    cargarTodo();
+</script>
+
+</body>
+</html>

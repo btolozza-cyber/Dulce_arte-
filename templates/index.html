@@ -1,0 +1,427 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dulce Arte | Inicio</title>
+
+    <style>
+        :root {
+            --gris-fondo: #222321;
+            --gris-panel: #2D2E2A;
+            --gris-tarjeta: #33342F;
+            --gris-borde: #484840;
+
+            --verde: #203D30;
+            --verde-hover: #162D23;
+            --verde-claro: #78917D;
+
+            --cafe: #594333;
+            --cafe-oscuro: #403024;
+            --cafe-claro: #A58B70;
+
+            --blanco: #F5F4F0;
+            --texto: #E7E5DF;
+            --texto-secundario: #B4B1A9;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--gris-fondo);
+            color: var(--texto);
+            display: flex;
+            flex-direction: column;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        /* ENCABEZADO */
+
+        header {
+            background: var(--verde-hover);
+            border-bottom: 4px solid var(--cafe);
+            padding: 20px 6%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .logo {
+            color: var(--blanco);
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: var(--cafe-claro);
+        }
+
+        .sublogo {
+            display: block;
+            color: var(--texto-secundario);
+            font-size: 10px;
+            font-weight: normal;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-top: 3px;
+        }
+
+        .acciones-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .boton-header {
+            display: inline-block;
+            padding: 9px 15px;
+            border: 1px solid var(--gris-borde);
+            border-radius: 4px;
+            color: var(--texto);
+            background: transparent;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .boton-header:hover {
+            background: var(--gris-tarjeta);
+            border-color: var(--cafe-claro);
+        }
+
+        .boton-admin {
+            border-color: var(--cafe-claro);
+            color: var(--cafe-claro);
+        }
+
+        .boton-admin:hover {
+            background: var(--cafe);
+            color: var(--blanco);
+        }
+
+        .form-logout {
+            margin: 0;
+        }
+
+        .boton-salir:hover {
+            background: #593333;
+            border-color: #805050;
+            color: var(--blanco);
+        }
+
+        /* CONTENIDO */
+
+        main {
+            width: 100%;
+            max-width: 1250px;
+            margin: 0 auto;
+            padding: 55px 6%;
+            flex: 1;
+        }
+
+        .bienvenida {
+            margin-bottom: 38px;
+        }
+
+        .etiqueta {
+            display: inline-block;
+            background: var(--cafe);
+            color: var(--blanco);
+            padding: 6px 11px;
+            border-radius: 3px;
+            font-size: 10px;
+            font-weight: bold;
+            letter-spacing: 1.3px;
+            margin-bottom: 15px;
+        }
+
+        .bienvenida h1 {
+            color: var(--blanco);
+            font-size: clamp(27px, 4vw, 36px);
+            margin-bottom: 9px;
+        }
+
+        .bienvenida p {
+            color: var(--texto-secundario);
+            font-size: 14px;
+        }
+
+        .seccion-titulo {
+            margin-bottom: 20px;
+        }
+
+        .seccion-titulo h2 {
+            color: var(--blanco);
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .seccion-titulo p {
+            color: var(--texto-secundario);
+            font-size: 13px;
+        }
+
+        /* TARJETAS DE MÓDULOS */
+
+        .modulos {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .tarjeta {
+            min-height: 190px;
+            padding: 23px;
+            background: var(--gris-panel);
+            border: 1px solid var(--gris-borde);
+            border-top: 4px solid var(--verde);
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+            transition:
+                transform 0.2s,
+                border-color 0.2s,
+                box-shadow 0.2s;
+        }
+
+        .tarjeta:hover {
+            transform: translateY(-4px);
+            border-top-color: var(--cafe-claro);
+            box-shadow: 0 8px 20px #00000025;
+        }
+
+        .numero {
+            color: var(--cafe-claro);
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            margin-bottom: 14px;
+        }
+
+        .tarjeta h3 {
+            color: var(--blanco);
+            font-size: 17px;
+            margin-bottom: 9px;
+        }
+
+        .tarjeta p {
+            color: var(--texto-secundario);
+            font-size: 13px;
+            line-height: 1.5;
+            margin-bottom: 18px;
+            flex: 1;
+        }
+
+        .acceder {
+            color: var(--cafe-claro);
+            font-size: 13px;
+            font-weight: bold;
+            align-self: flex-start;
+        }
+
+        .acceder:hover {
+            color: var(--blanco);
+            text-decoration: underline;
+        }
+
+        /* PIE DE PÁGINA */
+
+        footer {
+            background: #191A18;
+            border-top: 3px solid var(--cafe);
+            padding: 19px 6%;
+            text-align: center;
+            color: var(--texto-secundario);
+            font-size: 12px;
+        }
+
+        footer strong {
+            color: var(--blanco);
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 850px) {
+            .modulos {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 580px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .acciones-header {
+                width: 100%;
+                flex-wrap: wrap;
+            }
+
+            main {
+                padding-top: 35px;
+                padding-bottom: 35px;
+            }
+
+            .modulos {
+                grid-template-columns: 1fr;
+            }
+
+            .tarjeta {
+                min-height: 165px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">
+            Dulce Arte<span>.</span>
+            <span class="sublogo">Sistema de gestión</span>
+        </div>
+
+        <div class="acciones-header">
+
+            {% if user.is_superuser %}
+                <a href="{% url 'pagina_administracion' %}"
+                   class="boton-header boton-admin">
+                    Administración
+                </a>
+            {% endif %}
+
+            <form method="POST"
+                  action="{% url 'logout' %}"
+                  class="form-logout">
+
+                {% csrf_token %}
+
+                <button type="submit"
+                        class="boton-header boton-salir">
+                    Cerrar sesión
+                </button>
+            </form>
+
+        </div>
+    </header>
+
+    <main>
+
+        <section class="bienvenida">
+            <span class="etiqueta">CENTRO DE OPERACIONES</span>
+
+            <h1>Bienvenido a Dulce Arte</h1>
+
+            <p>
+                Selecciona el módulo que deseas gestionar.
+                Toda la operación de la pastelería en un solo lugar.
+            </p>
+        </section>
+
+        <section>
+
+            <div class="seccion-titulo">
+                <h2>Menú principal</h2>
+                <p>Accede directamente a las áreas del sistema.</p>
+            </div>
+
+            <div class="modulos">
+
+                <article class="tarjeta">
+                    <span class="numero">MÓDULO 01</span>
+                    <h3>Clientes</h3>
+                    <p>
+                        Registra y administra la información
+                        de los clientes de la pastelería.
+                    </p>
+                    <a href="{% url 'pagina_clientes' %}" class="acceder">
+                        Acceder al módulo →
+                    </a>
+                </article>
+
+                <article class="tarjeta">
+                    <span class="numero">MÓDULO 02</span>
+                    <h3>Pedidos</h3>
+                    <p>
+                        Gestiona pedidos, productos solicitados,
+                        detalles y fechas de entrega.
+                    </p>
+                    <a href="{% url 'pagina_pedidos' %}" class="acceder">
+                        Acceder al módulo →
+                    </a>
+                </article>
+
+                <article class="tarjeta">
+                    <span class="numero">MÓDULO 03</span>
+                    <h3>Productos</h3>
+                    <p>
+                        Administra el catálogo de productos
+                        y sus características.
+                    </p>
+                    <a href="{% url 'pagina_productos' %}" class="acceder">
+                        Acceder al módulo →
+                    </a>
+                </article>
+
+                <article class="tarjeta">
+                    <span class="numero">MÓDULO 04</span>
+                    <h3>Producción</h3>
+                    <p>
+                        Supervisa las etapas de preparación
+                        y el avance de cada pedido.
+                    </p>
+                    <a href="{% url 'pagina_produccion' %}" class="acceder">
+                        Acceder al módulo →
+                    </a>
+                </article>
+
+                <article class="tarjeta">
+                    <span class="numero">MÓDULO 05</span>
+                    <h3>Inventario</h3>
+                    <p>
+                        Controla los insumos, existencias
+                        y movimientos de inventario.
+                    </p>
+                    <a href="{% url 'pagina_inventario' %}" class="acceder">
+                        Acceder al módulo →
+                    </a>
+                </article>
+
+                <article class="tarjeta">
+                    <span class="numero">MÓDULO 06</span>
+                    <h3>Despachos</h3>
+                    <p>
+                        Organiza las entregas y registra
+                        el estado de cada despacho.
+                    </p>
+                    <a href="{% url 'pagina_despachos' %}" class="acceder">
+                        Acceder al módulo →
+                    </a>
+                </article>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>
+            <strong>Dulce Arte</strong> · Sistema de Trazabilidad y Pedidos
+        </p>
+    </footer>
+
+</body>
+</html>

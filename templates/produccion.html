@@ -1,0 +1,1175 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Producción | Dulce Arte</title>
+
+    <style>
+        :root {
+            --gris-fondo: #222321;
+            --gris-panel: #2D2E2A;
+            --gris-tarjeta: #33342F;
+            --gris-borde: #484840;
+            --verde: #203D30;
+            --verde-hover: #162D23;
+            --verde-claro: #78917D;
+            --cafe: #594333;
+            --cafe-oscuro: #403024;
+            --cafe-claro: #A58B70;
+            --blanco: #F5F4F0;
+            --texto: #E7E5DF;
+            --texto-secundario: #B4B1A9;
+            --rojo: #A94F49;
+            --amarillo: #B28A43;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--gris-fondo);
+            color: var(--texto);
+            font-family: Arial, Helvetica, sans-serif;
+            min-height: 100vh;
+        }
+
+        /* HEADER */
+
+        header {
+            background: var(--verde);
+            border-bottom: 2px solid var(--cafe);
+        }
+
+        .header-superior {
+            max-width: 1500px;
+            margin: auto;
+            padding: 18px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .marca h1 {
+            color: var(--blanco);
+            font-size: 25px;
+            margin-bottom: 5px;
+        }
+
+        .marca p {
+            color: #D0D8D0;
+            font-size: 13px;
+        }
+
+        .acciones-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .acciones-header a {
+            color: var(--blanco);
+            text-decoration: none;
+            font-size: 13px;
+            padding: 9px 13px;
+            border-radius: 6px;
+            background: rgba(0, 0, 0, .13);
+        }
+
+        .acciones-header a:hover {
+            background: var(--verde-hover);
+        }
+
+        .form-logout {
+            margin: 0;
+        }
+
+        .btn-logout {
+            background: var(--cafe);
+            color: var(--blanco);
+            border: none;
+            border-radius: 6px;
+            padding: 9px 13px;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        .btn-logout:hover {
+            background: var(--cafe-oscuro);
+        }
+
+        .navegacion {
+            max-width: 1500px;
+            margin: auto;
+            padding: 0 25px 13px;
+            display: flex;
+            gap: 7px;
+            flex-wrap: wrap;
+        }
+
+        .navegacion a {
+            color: var(--blanco);
+            text-decoration: none;
+            padding: 10px 13px;
+            border-radius: 6px;
+            font-size: 13px;
+        }
+
+        .navegacion a:hover,
+        .navegacion a.activo {
+            background: var(--verde-hover);
+        }
+
+        /* CONTENIDO */
+
+        main {
+            max-width: 1500px;
+            margin: 35px auto;
+            padding: 0 25px 40px;
+        }
+
+        .encabezado {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 22px;
+        }
+
+        .encabezado h2 {
+            color: var(--blanco);
+            font-size: 27px;
+            margin-bottom: 7px;
+        }
+
+        .encabezado p {
+            color: var(--texto-secundario);
+            font-size: 14px;
+        }
+
+        .acciones-superiores {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            border: none;
+            border-radius: 6px;
+            padding: 10px 15px;
+            color: var(--blanco);
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: bold;
+            transition: background .2s;
+        }
+
+        button:disabled {
+            opacity: .5;
+            cursor: not-allowed;
+        }
+
+        .btn-verde {
+            background: var(--verde);
+        }
+
+        .btn-verde:hover:not(:disabled) {
+            background: var(--verde-hover);
+        }
+
+        .btn-cafe {
+            background: var(--cafe);
+        }
+
+        .btn-cafe:hover:not(:disabled) {
+            background: var(--cafe-oscuro);
+        }
+
+        .btn-rojo {
+            background: #713B37;
+        }
+
+        .btn-rojo:hover:not(:disabled) {
+            background: #542B28;
+        }
+
+        /* MENSAJES */
+
+        .mensaje {
+            display: none;
+            padding: 12px 15px;
+            border-radius: 6px;
+            margin-bottom: 18px;
+            font-size: 13px;
+        }
+
+        .mensaje.exito {
+            display: block;
+            background: #203D30;
+            border: 1px solid var(--verde-claro);
+            color: #D8E8DA;
+        }
+
+        .mensaje.error {
+            display: block;
+            background: #542B28;
+            border: 1px solid var(--rojo);
+            color: #F3D8D5;
+        }
+
+        /* RESUMEN */
+
+        .panel-resumen {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(120px, 1fr));
+            gap: 12px;
+            margin-bottom: 22px;
+        }
+
+        .resumen-item {
+            background: var(--gris-panel);
+            border: 1px solid var(--gris-borde);
+            border-radius: 9px;
+            padding: 18px;
+        }
+
+        .resumen-item span {
+            display: block;
+            color: var(--texto-secundario);
+            font-size: 12px;
+            margin-bottom: 9px;
+        }
+
+        .resumen-item strong {
+            font-size: 27px;
+            color: var(--blanco);
+        }
+
+        /* CONTROLES */
+
+        .controles {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            background: var(--gris-panel);
+            border: 1px solid var(--gris-borde);
+            border-radius: 9px;
+            padding: 18px;
+        }
+
+        .controles input,
+        .controles select {
+            background: var(--gris-tarjeta);
+            border: 1px solid var(--gris-borde);
+            color: var(--texto);
+            padding: 11px 12px;
+            border-radius: 6px;
+            outline: none;
+            font-size: 13px;
+        }
+
+        .controles input:focus,
+        .controles select:focus {
+            border-color: var(--verde-claro);
+        }
+
+        .controles input {
+            flex: 1;
+            min-width: 220px;
+        }
+
+        .controles select {
+            min-width: 190px;
+        }
+
+        /* TABLERO */
+
+        .tablero {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(250px, 1fr));
+            gap: 13px;
+            align-items: start;
+            overflow-x: auto;
+            padding-bottom: 15px;
+        }
+
+        .columna {
+            background: var(--gris-panel);
+            border: 1px solid var(--gris-borde);
+            border-radius: 9px;
+            min-height: 300px;
+            overflow: hidden;
+        }
+
+        .columna-encabezado {
+            padding: 16px;
+            border-bottom: 1px solid var(--gris-borde);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .columna-encabezado h3 {
+            font-size: 14px;
+            color: var(--blanco);
+        }
+
+        .contador {
+            background: var(--verde);
+            color: var(--blanco);
+            border-radius: 20px;
+            padding: 4px 9px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .columna-contenido {
+            padding: 11px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* TARJETAS DE PEDIDOS */
+
+        .pedido-card {
+            background: var(--gris-tarjeta);
+            border: 1px solid var(--gris-borde);
+            border-radius: 8px;
+            padding: 14px;
+        }
+
+        .pedido-superior {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .pedido-id {
+            color: var(--cafe-claro);
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .pedido-cliente {
+            color: var(--blanco);
+            font-size: 15px;
+            margin-top: 5px;
+            overflow-wrap: anywhere;
+        }
+
+        .pedido-fecha {
+            background: var(--cafe-oscuro);
+            color: #E0CDB9;
+            padding: 5px 7px;
+            border-radius: 5px;
+            font-size: 10px;
+            white-space: nowrap;
+        }
+
+        .pedido-datos {
+            border-top: 1px solid var(--gris-borde);
+            padding-top: 11px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            font-size: 12px;
+        }
+
+        .dato {
+            color: var(--texto-secundario);
+            line-height: 1.45;
+            overflow-wrap: anywhere;
+        }
+
+        .dato strong {
+            color: var(--texto);
+            font-weight: normal;
+        }
+
+        .detalle-lista {
+            margin-top: 4px;
+            padding-left: 17px;
+            color: var(--texto-secundario);
+        }
+
+        .detalle-lista li {
+            margin: 4px 0;
+            line-height: 1.4;
+        }
+
+        .pedido-total {
+            color: var(--verde-claro);
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .pedido-acciones {
+            display: flex;
+            gap: 7px;
+            margin-top: 13px;
+        }
+
+        .pedido-acciones button {
+            flex: 1;
+            font-size: 11px;
+            padding: 9px 7px;
+        }
+
+        .btn-historial {
+            background: var(--cafe);
+        }
+
+        .btn-historial:hover {
+            background: var(--cafe-oscuro);
+        }
+
+        /* TRAZABILIDAD */
+
+        .historial {
+            display: none;
+            margin-top: 12px;
+            border-top: 1px solid var(--gris-borde);
+            padding-top: 11px;
+        }
+
+        .historial.visible {
+            display: block;
+        }
+
+        .historial h4 {
+            font-size: 12px;
+            margin-bottom: 10px;
+            color: var(--cafe-claro);
+        }
+
+        .historial-item {
+            border-left: 2px solid var(--verde-claro);
+            padding: 2px 0 9px 10px;
+            margin-bottom: 6px;
+        }
+
+        .historial-item strong {
+            font-size: 11px;
+            color: var(--texto);
+        }
+
+        .historial-item p {
+            color: var(--texto-secundario);
+            font-size: 10px;
+            margin-top: 4px;
+            line-height: 1.4;
+        }
+
+        /* ESTADOS VACÍOS */
+
+        .vacio {
+            color: var(--texto-secundario);
+            text-align: center;
+            padding: 25px 10px;
+            font-size: 12px;
+        }
+
+        .cargando {
+            color: var(--texto-secundario);
+            text-align: center;
+            padding: 35px;
+        }
+
+        .sin-resultados {
+            color: var(--texto-secundario);
+            text-align: center;
+            padding: 20px;
+            font-size: 13px;
+        }
+
+        /* CANCELADOS */
+
+        .seccion-cancelados {
+            margin-top: 25px;
+            background: var(--gris-panel);
+            border: 1px solid var(--gris-borde);
+            border-radius: 9px;
+            overflow: hidden;
+        }
+
+        .seccion-cancelados .columna-encabezado {
+            background: #382B29;
+        }
+
+        .seccion-cancelados .contador {
+            background: #713B37;
+        }
+
+        .cancelados-lista {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 12px;
+            padding: 14px;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 1000px) {
+            .panel-resumen {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 700px) {
+            .header-superior {
+                padding: 17px;
+                align-items: flex-start;
+            }
+
+            .acciones-header {
+                width: 100%;
+                flex-wrap: wrap;
+            }
+
+            .navegacion {
+                padding: 0 17px 13px;
+            }
+
+            .navegacion a {
+                padding: 9px 10px;
+                font-size: 12px;
+            }
+
+            main {
+                padding: 0 14px 30px;
+                margin-top: 25px;
+            }
+
+            .encabezado h2 {
+                font-size: 23px;
+            }
+
+            .panel-resumen {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .resumen-item {
+                padding: 14px;
+            }
+
+            .resumen-item strong {
+                font-size: 23px;
+            }
+
+            .tablero {
+                grid-template-columns: repeat(5, minmax(260px, 1fr));
+            }
+
+            .controles {
+                padding: 13px;
+            }
+
+            .controles input,
+            .controles select {
+                width: 100%;
+                min-width: 0;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .panel-resumen {
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+            }
+
+            .resumen-item {
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="header-superior">
+        <div class="marca">
+            <h1>Dulce Arte.</h1>
+            <p>Sistema de trazabilidad y gestión de pedidos</p>
+        </div>
+
+        <div class="acciones-header">
+            <a href="/admin/">Administración</a>
+
+            <form class="form-logout" method="POST" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="btn-logout">Cerrar sesión</button>
+            </form>
+        </div>
+    </div>
+
+    <nav class="navegacion">
+        <a href="/">Inicio</a>
+        <a href="/clientes/">Clientes</a>
+        <a href="/pedidos/">Pedidos</a>
+        <a href="/productos/">Productos</a>
+        <a href="/produccion/" class="activo">Producción</a>
+        <a href="/inventario/">Inventario</a>
+        <a href="/despachos/">Despachos</a>
+    </nav>
+</header>
+
+<main>
+    <section class="encabezado">
+        <div>
+            <h2>Tablero de producción</h2>
+            <p>Seguimiento de cada pedido durante sus etapas de elaboración.</p>
+        </div>
+
+        <div class="acciones-superiores">
+            <button class="btn-verde" onclick="cargarTablero()">
+                Actualizar tablero
+            </button>
+        </div>
+    </section>
+
+    <div id="mensaje" class="mensaje"></div>
+
+    <section class="panel-resumen">
+        <div class="resumen-item">
+            <span>Recibidos</span>
+            <strong id="total-recibido">0</strong>
+        </div>
+
+        <div class="resumen-item">
+            <span>En preparación</span>
+            <strong id="total-preparacion">0</strong>
+        </div>
+
+        <div class="resumen-item">
+            <span>Horneado / Decorado</span>
+            <strong id="total-horneado">0</strong>
+        </div>
+
+        <div class="resumen-item">
+            <span>Control de calidad</span>
+            <strong id="total-calidad">0</strong>
+        </div>
+
+        <div class="resumen-item">
+            <span>Listos</span>
+            <strong id="total-listo">0</strong>
+        </div>
+    </section>
+
+    <section class="controles">
+        <input
+            type="search"
+            id="busqueda"
+            placeholder="Buscar por cliente o número de pedido..."
+            oninput="renderizarTablero()"
+        >
+
+        <select id="filtro-etapa" onchange="renderizarTablero()">
+            <option value="">Todas las etapas</option>
+            <option value="recibido">Recibidos</option>
+            <option value="preparacion">En preparación</option>
+            <option value="horneado_decorado">Horneado / Decorado</option>
+            <option value="control_calidad">Control de calidad</option>
+            <option value="listo">Listos para entrega</option>
+            <option value="cancelado">Cancelados</option>
+        </select>
+    </section>
+
+    <section id="tablero" class="tablero">
+        <div class="cargando">Cargando tablero de producción...</div>
+    </section>
+
+    <section class="seccion-cancelados">
+        <div class="columna-encabezado">
+            <h3>Pedidos cancelados</h3>
+            <span class="contador" id="contador-cancelados">0</span>
+        </div>
+
+        <div id="cancelados" class="cancelados-lista">
+            <p class="vacio">No hay pedidos cancelados.</p>
+        </div>
+    </section>
+</main>
+
+<form style="display:none;">
+    {% csrf_token %}
+</form>
+
+<script>
+    const API_TABLERO = "/api/produccion/tablero/";
+    const API_HISTORIAL = "/api/historial/";
+    const API_CAMBIAR_ESTADO = "/api/produccion/pedidos/";
+
+    const etapas = [
+        {
+            key: "recibido",
+            titulo: "Recibidos",
+            siguiente: "preparacion",
+            boton: "Iniciar preparación"
+        },
+        {
+            key: "preparacion",
+            titulo: "En preparación",
+            siguiente: "horneado_decorado",
+            boton: "Pasar a horneado"
+        },
+        {
+            key: "horneado_decorado",
+            titulo: "Horneado / Decorado",
+            siguiente: "control_calidad",
+            boton: "Enviar a control"
+        },
+        {
+            key: "control_calidad",
+            titulo: "Control de calidad",
+            siguiente: "listo",
+            boton: "Marcar como listo"
+        },
+        {
+            key: "listo",
+            titulo: "Listos para entrega",
+            siguiente: null,
+            boton: null
+        }
+    ];
+
+    let tableroDatos = {};
+    let historiales = {};
+
+    function obtenerCookie(nombre) {
+        const cookies = document.cookie ? document.cookie.split(";") : [];
+
+        for (let cookie of cookies) {
+            cookie = cookie.trim();
+
+            if (cookie.startsWith(nombre + "=")) {
+                return decodeURIComponent(cookie.substring(nombre.length + 1));
+            }
+        }
+
+        return "";
+    }
+
+    function obtenerCSRF() {
+        const campo = document.querySelector("[name=csrfmiddlewaretoken]");
+        return obtenerCookie("csrftoken") || (campo ? campo.value : "");
+    }
+
+    async function solicitud(url, opciones = {}) {
+        const configuracion = {
+            credentials: "same-origin",
+            ...opciones,
+            headers: {
+                "Content-Type": "application/json",
+                ...(opciones.headers || {})
+            }
+        };
+
+        if (["POST", "PUT", "PATCH", "DELETE"].includes(
+            (configuracion.method || "GET").toUpperCase()
+        )) {
+            configuracion.headers["X-CSRFToken"] = obtenerCSRF();
+        }
+
+        const respuesta = await fetch(url, configuracion);
+
+        let datos = {};
+
+        try {
+            datos = await respuesta.json();
+        } catch (error) {
+            datos = {};
+        }
+
+        if (!respuesta.ok) {
+            let detalle = datos.error || datos.detail || datos.mensaje;
+
+            if (Array.isArray(detalle)) {
+                detalle = detalle.join(", ");
+            }
+
+            if (typeof detalle === "object" && detalle !== null) {
+                detalle = JSON.stringify(detalle);
+            }
+
+            throw new Error(detalle || "No se pudo completar la solicitud.");
+        }
+
+        return datos;
+    }
+
+    function escapar(valor) {
+        return String(valor ?? "")
+            .replaceAll("&", "&amp;")
+            .replaceAll("<", "&lt;")
+            .replaceAll(">", "&gt;")
+            .replaceAll('"', "&quot;")
+            .replaceAll("'", "&#039;");
+    }
+
+    function formatoFecha(fecha) {
+        if (!fecha) return "Sin fecha";
+
+        const valor = String(fecha).split("T")[0];
+        const partes = valor.split("-");
+
+        if (partes.length === 3) {
+            return `${partes[2]}/${partes[1]}/${partes[0]}`;
+        }
+
+        return escapar(fecha);
+    }
+
+    function formatoDinero(valor) {
+        const numero = Number(valor || 0);
+
+        return numero.toLocaleString("es-CL", {
+            style: "currency",
+            currency: "CLP",
+            maximumFractionDigits: 0
+        });
+    }
+
+    function mostrarMensaje(texto, tipo = "exito") {
+        const elemento = document.getElementById("mensaje");
+
+        elemento.textContent = texto;
+        elemento.className = "mensaje " + tipo;
+
+        window.scrollTo({ top: 0, behavior: "smooth" });
+
+        setTimeout(() => {
+            elemento.className = "mensaje";
+            elemento.textContent = "";
+        }, 5000);
+    }
+
+    function obtenerPedidos(estado) {
+        return tableroDatos[estado]?.pedidos || [];
+    }
+
+    function obtenerNombreCliente(pedido) {
+        return pedido.cliente_nombre ||
+            pedido.nombre_cliente ||
+            "Cliente no especificado";
+    }
+
+    function renderizarDetalles(pedido) {
+        const detalles = pedido.detalles || [];
+
+        if (!detalles.length) {
+            return "";
+        }
+
+        return `
+            <div class="dato">
+                <strong>Productos:</strong>
+                <ul class="detalle-lista">
+                    ${detalles.map(detalle => `
+                        <li>
+                            ${escapar(detalle.producto_nombre || "Producto")}
+                            × ${escapar(detalle.cantidad)}
+                        </li>
+                    `).join("")}
+                </ul>
+            </div>
+        `;
+    }
+
+    function renderizarHistorial(pedidoId) {
+        const registros = historiales[pedidoId];
+
+        if (!registros) {
+            return `<p class="dato">Cargando historial...</p>`;
+        }
+
+        if (!registros.length) {
+            return `<p class="dato">Este pedido todavía no tiene registros.</p>`;
+        }
+
+        return registros.map(registro => `
+            <div class="historial-item">
+                <strong>
+                    ${escapar(registro.estado_anterior || "Registro inicial")}
+                    → ${escapar(registro.estado_nuevo)}
+                </strong>
+                <p>
+                    ${formatoFecha(registro.fecha_cambio)}
+                    ${registro.observacion ? " · " + escapar(registro.observacion) : ""}
+                </p>
+            </div>
+        `).join("");
+    }
+
+    function crearTarjeta(pedido, estado) {
+        const etapa = etapas.find(item => item.key === estado);
+        const pedidoId = pedido.id;
+
+        const botonAvanzar = etapa?.siguiente
+            ? `
+                <button
+                    class="btn-verde"
+                    onclick="avanzarPedido(${Number(pedidoId)}, '${etapa.siguiente}')"
+                >
+                    ${etapa.boton}
+                </button>
+            `
+            : "";
+
+        const telefono = pedido.telefono
+            ? `<div class="dato"><strong>Teléfono:</strong> ${escapar(pedido.telefono)}</div>`
+            : "";
+
+        const descripcion = pedido.descripcion
+            ? `<div class="dato"><strong>Descripción:</strong> ${escapar(pedido.descripcion)}</div>`
+            : "";
+
+        const ingredientes = pedido.ingredientes
+            ? `<div class="dato"><strong>Ingredientes:</strong> ${escapar(pedido.ingredientes)}</div>`
+            : "";
+
+        const diseno = pedido.diseno
+            ? `<div class="dato"><strong>Diseño:</strong> ${escapar(pedido.diseno)}</div>`
+            : "";
+
+        return `
+            <article class="pedido-card">
+                <div class="pedido-superior">
+                    <div>
+                        <div class="pedido-id">PEDIDO #${escapar(pedidoId)}</div>
+                        <h4 class="pedido-cliente">${escapar(obtenerNombreCliente(pedido))}</h4>
+                    </div>
+                    <span class="pedido-fecha">
+                        ${formatoFecha(pedido.fecha_entrega)}
+                    </span>
+                </div>
+
+                <div class="pedido-datos">
+                    ${telefono}
+                    ${descripcion}
+                    ${ingredientes}
+                    ${diseno}
+                    ${renderizarDetalles(pedido)}
+
+                    <div class="dato pedido-total">
+                        Total: ${formatoDinero(pedido.total)}
+                    </div>
+                </div>
+
+                <div class="pedido-acciones">
+                    ${botonAvanzar}
+                    <button
+                        class="btn-historial"
+                        onclick="alternarHistorial(${Number(pedidoId)})"
+                    >
+                        Trazabilidad
+                    </button>
+                </div>
+
+                <div class="historial" id="historial-${Number(pedidoId)}">
+                    <h4>Historial del pedido</h4>
+                    <div id="historial-contenido-${Number(pedidoId)}">
+                        ${renderizarHistorial(pedidoId)}
+                    </div>
+                </div>
+            </article>
+        `;
+    }
+
+    function coincideBusqueda(pedido, busqueda) {
+        if (!busqueda) return true;
+
+        const texto = [
+            pedido.id,
+            obtenerNombreCliente(pedido),
+            pedido.telefono
+        ].join(" ").toLowerCase();
+
+        return texto.includes(busqueda);
+    }
+
+    function renderizarTablero() {
+        const tablero = document.getElementById("tablero");
+        const canceladosContenedor = document.getElementById("cancelados");
+
+        const busqueda = document.getElementById("busqueda")
+            .value.trim().toLowerCase();
+
+        const filtro = document.getElementById("filtro-etapa").value;
+
+        tablero.innerHTML = "";
+        canceladosContenedor.innerHTML = "";
+
+        etapas.forEach(etapa => {
+            const pedidos = obtenerPedidos(etapa.key)
+                .filter(pedido => coincideBusqueda(pedido, busqueda));
+const idsResumen = {
+    recibido: "total-recibido",
+    preparacion: "total-preparacion",
+    horneado_decorado: "total-horneado",
+    control_calidad: "total-calidad",
+    listo: "total-listo"
+};
+
+document.getElementById(
+    idsResumen[etapa.key]
+).textContent = obtenerPedidos(etapa.key).length;
+
+            if (filtro && filtro !== etapa.key) return;
+
+            const columna = document.createElement("div");
+            columna.className = "columna";
+
+            columna.innerHTML = `
+                <div class="columna-encabezado">
+                    <h3>${etapa.titulo}</h3>
+                    <span class="contador">${pedidos.length}</span>
+                </div>
+                <div class="columna-contenido">
+                    ${
+                        pedidos.length
+                            ? pedidos.map(pedido =>
+                                crearTarjeta(pedido, etapa.key)
+                            ).join("")
+                            : `<p class="vacio">No hay pedidos en esta etapa.</p>`
+                    }
+                </div>
+            `;
+
+            tablero.appendChild(columna);
+        });
+
+        const pedidosCancelados = obtenerPedidos("cancelado")
+            .filter(pedido => coincideBusqueda(pedido, busqueda));
+
+        document.getElementById("contador-cancelados").textContent =
+            obtenerPedidos("cancelado").length;
+
+        if (!filtro || filtro === "cancelado") {
+            canceladosContenedor.innerHTML = pedidosCancelados.length
+                ? pedidosCancelados.map(pedido =>
+                    crearTarjeta(pedido, "cancelado")
+                ).join("")
+                : `<p class="vacio">No hay pedidos cancelados.</p>`;
+        } else {
+            canceladosContenedor.innerHTML =
+                `<p class="vacio">Filtra por cancelados para ver estos pedidos.</p>`;
+        }
+
+        if (filtro && filtro !== "cancelado" && !etapas.some(e => e.key === filtro)) {
+            tablero.innerHTML = `<p class="sin-resultados">No hay resultados.</p>`;
+        }
+    }
+
+    async function cargarTablero() {
+        const tablero = document.getElementById("tablero");
+        tablero.innerHTML = `<div class="cargando">Actualizando producción...</div>`;
+
+        try {
+            tableroDatos = await solicitud(API_TABLERO);
+            historiales = {};
+            renderizarTablero();
+        } catch (error) {
+            tablero.innerHTML = `
+                <p class="sin-resultados">
+                    No se pudo cargar el tablero: ${escapar(error.message)}
+                </p>
+            `;
+            mostrarMensaje(error.message, "error");
+        }
+    }
+
+    async function avanzarPedido(pedidoId, nuevoEstado) {
+        const nombres = {
+            preparacion: "En preparación",
+            horneado_decorado: "Horneado / Decorado",
+            control_calidad: "Control de calidad",
+            listo: "Listo para entrega"
+        };
+
+        const destino = nombres[nuevoEstado] || nuevoEstado;
+
+        const confirmado = confirm(
+            `¿Deseas avanzar el pedido #${pedidoId} a "${destino}"?`
+        );
+
+        if (!confirmado) return;
+
+        try {
+            const resultado = await solicitud(
+                `${API_CAMBIAR_ESTADO}${pedidoId}/estado/`,
+                {
+                    method: "PATCH",
+                    body: JSON.stringify({ estado: nuevoEstado })
+                }
+            );
+
+            mostrarMensaje(
+                resultado.mensaje || "Estado actualizado correctamente."
+            );
+
+            await cargarTablero();
+
+        } catch (error) {
+            mostrarMensaje(error.message, "error");
+        }
+    }
+
+    async function alternarHistorial(pedidoId) {
+        const panel = document.getElementById(`historial-${pedidoId}`);
+        const contenido = document.getElementById(
+            `historial-contenido-${pedidoId}`
+        );
+
+        if (!panel || !contenido) return;
+
+        const estabaVisible = panel.classList.contains("visible");
+
+        panel.classList.toggle("visible");
+
+        if (estabaVisible) return;
+
+        if (historiales[pedidoId]) {
+            contenido.innerHTML = renderizarHistorial(pedidoId);
+            return;
+        }
+
+        contenido.innerHTML = `<p class="dato">Consultando historial...</p>`;
+
+        try {
+            const respuesta = await solicitud(
+                `${API_HISTORIAL}?pedido=${pedidoId}`
+            );
+
+            historiales[pedidoId] = Array.isArray(respuesta)
+                ? respuesta
+                : (respuesta.results || []);
+
+            contenido.innerHTML = renderizarHistorial(pedidoId);
+
+        } catch (error) {
+            contenido.innerHTML = `
+                <p class="dato">No se pudo cargar el historial: ${escapar(error.message)}</p>
+            `;
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", cargarTablero);
+</script>
+
+</body>
+</html>

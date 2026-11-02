@@ -1,0 +1,12 @@
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+
+.\venv\Scripts\Activate.ps1
+
+
+Módulos:
+
+Clientes	Quién compra: nombre, teléfono, correo y dirección.
+Pedidos 	Qué solicitó el cliente, cuándo debe entregarse y en qué estado está.
+Productos	Qué vende la pastelería: tortas, pasteles, galletas, etc.
+Inventario	Qué materias primas hay disponibles y cuánto stock queda.
+Producción	En qué etapa de elaboración se encuentra cada pedido y su historial.
